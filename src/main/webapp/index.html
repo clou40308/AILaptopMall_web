@@ -7,31 +7,146 @@
     <title>AI筆電商城</title>
     <link rel="stylesheet" type="text/css" href="style/ailm.css">
     <style>
+        /* header css */
         header {
-            height: 100px;
+            width: 100vw;
+            height: 80px;
             background-color: #dc0001;
             color: #fff;
-            display: block;
+            display: flex;
+            justify-content: space-between;
         }
-        #header_title{
-            width: 140px;
-            border: 1px black solid;
-            margin-left: 80px;
+        #header-title{
+            width: 300px;
+            margin-left: 100px;
+            display:flex;
+        }
+        h2{
+            width: 150px;
         }
         a{
             text-decoration: none;
             color: inherit;
         }
+        #header-title-hr {
+            width: 2px; 
+            height: 26px; 
+            background-color: #fff; 
+            border: none; 
+            margin-top:27px;
+        }
+        #header-title-span{
+            margin-top:34px;
+            margin-left: 10px;
+            font-size: 14px;
+            width: 180px;
+        }
+        #search-bar{
+            width: 550px;
+            height: 40px;
+            margin-top: 25PX;
+            white-space: nowrap;
+        }
+        #search-bar-keyword{
+            width: 500px;
+            height: 35px;
+            border-radius: 12px;
+            font-size: 18px;
+            padding-left: 40px;
+            padding-right: 55px;
+            position:absolute;
+            z-index: 1;
+            border: none;
+            outline: none;
+        }
+        #search-bar-img{
+            width: 28px;
+            height: 28px;
+            position:relative;
+            top: 3px;
+            left: 40px; 
+            z-index: 2;
+        }
+        #search-bar-submit{
+            position:relative;
+            top: -5px;
+            left: 448px; 
+            z-index: 2;
+            border: none;
+            width: 52px;
+            height: 36px;
+            border-radius: 0px 10px 10px 0px;
+            font-size: 16px;
+            background-color: #0f69ff;
+            color: #fff;
+            cursor: pointer;
+        }
+        #account-area{
+            margin-right: 180px;
+            display: flex;
+        }
+        #account-area a{
+            padding-left: 20px;
+            width: 70px;
+            margin-top:27px;
+        }
+        #account-area-hr{
+            width: 2px; 
+            height: 23px; 
+            background-color: #fff; 
+            border: none; 
+            margin-top:27px;
+        }
+        /* header css */
+
+        /* site-logo css */
+        #site-logo{
+            height: 60px;
+            background-color: black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        /* site-logo css */
+
+
     </style>
 </head>
 
 <body>
     <header>
-        <div id="header_title">
+        <div id="header-title">
             <h2><a href="./">AI筆電商城</a></h2>
+            <hr id="header-title-hr">
+            <span id="header-title-span">助你成就每一刻</span>
         </div>
-        
+        <div id="search-bar">
+            <form action="" method="get" >
+                <img id ="search-bar-img" src="./images/search_icon.png" alt="">
+                <input id ="search-bar-keyword" type="search" name="keyword" required placeholder="搜尋商品">
+                <input id ="search-bar-submit" type="submit" value="查詢">
+            </form>
+        </div>
+        <div id="account-area">
+            <a href="">買筆電</a>
+            <hr id="account-area-hr">
+            <a href="">登入</a> 
+            <hr id="account-area-hr">
+            <a href="">註冊</a> 
+            <hr id="account-area-hr">
+            <a href="">登出</a>
+            <hr id="account-area-hr">
+	        <a href="">修改會員</a>
+        </div>
     </header>
+    <div id="site-logo">
+        <div>
+            <img src="./images/logo-ai.png" alt="">
+        </div> 
+    </div>
+    <footer>
+        
+    </footer>
 </body>
 
 </html>
