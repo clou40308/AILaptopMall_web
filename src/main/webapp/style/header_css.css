@@ -1,0 +1,105 @@
+/* header css */
+header {
+    width: 100vw;
+    height: 80px;
+    background-color: #dc0001;
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+}
+
+#header-title {
+    width: 300px;
+    margin-left: 100px;
+    display: flex;
+}
+
+h2 {
+    width: 150px;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+#header-title-hr {
+    width: 2px;
+    height: 26px;
+    background-color: #fff;
+    border: none;
+    margin-top: 27px;
+}
+
+#header-title-span {
+    margin-top: 34px;
+    margin-left: 10px;
+    padding-left: 0px;
+    font-size: 14px;
+    width: 180px;
+}
+
+#search-bar {
+    width: 550px;
+    height: 40px;
+    margin-top: 25PX;
+    white-space: nowrap;
+}
+
+#search-bar-keyword {
+    width: 500px;
+    height: 35px;
+    border-radius: 12px;
+    font-size: 18px;
+    padding-left: 40px;
+    padding-right: 55px;
+    position: absolute;
+    z-index: 1;
+    border: none;
+    outline: none;
+}
+
+#search-bar-img {
+    width: 28px;
+    height: 28px;
+    position: relative;
+    top: 3px;
+    left: 40px;
+    z-index: 2;
+}
+
+#search-bar-submit {
+    position: relative;
+    top: -5px;
+    left: 448px;
+    z-index: 2;
+    border: none;
+    width: 52px;
+    height: 36px;
+    border-radius: 0px 10px 10px 0px;
+    font-size: 16px;
+    background-color: #0f69ff;
+    color: #fff;
+    cursor: pointer;
+}
+
+#account-area {
+    margin-right: 180px;
+    display: flex;
+}
+
+#account-area a,
+span {
+    padding-left: 20px;
+    width: 70px;
+    margin-top: 27px;
+}
+
+#account-area-hr {
+    width: 2px;
+    height: 23px;
+    background-color: #fff;
+    border: none;
+    margin-top: 27px;
+}
+/* header css */
