@@ -9,7 +9,128 @@
     <link rel="stylesheet" type="text/css" href="style/header.css">
     <link rel="stylesheet" type="text/css" href="style/footer.css">
     <style>
+        #container-register{
+            height: 900px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-image: url(./images/background-img.jpg); 
+        }
+        #register-area {
+            background-color: #fff;
+            height: 800px;
+            width: 500px;
+        }
+        #register-area-title{
+            width: 100%;
+            height: 60px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        #register-area-title p {
+            font-size: 22px;
+            font-weight: 700;
+        }
+        #register-area-register {
+            width: 100%;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
 
+        #register-area-register a {
+            color: #0090eb;
+        }
+
+        #register-area-form-account,
+        #register-area-form-password,
+        #register-area-form-id,
+        #register-area-form-email,
+        #register-area-form-phone,
+        #register-area-form-name,
+        #register-area-form-birthday {
+            width: 100%;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 5px;
+        }
+
+        #register-area-form-account label,
+        #register-area-form-password label,
+        #register-area-form-id label,
+        #register-area-form-email label,
+        #register-area-form-phone label,
+        #register-area-form-name label,
+        #register-area-form-birthday label {
+            margin-right: 12px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        #register-area-form-account input ,
+        #register-area-form-password input,
+        #register-area-form-id input,
+        #register-area-form-email input,
+        #register-area-form-phone input,
+        #register-area-form-name input,
+        #register-area-form-birthday input{
+            height: 30px;
+            width: 200px;
+            font-size: 16px;
+            border-radius: 4px;
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+
+        #register-area-form-id input{
+            margin-right: 50px;
+        }
+
+        #register-area-form-email input{
+            margin-right: 14px;
+        }
+
+        #register-area-form-phone input{
+            margin-right: 28px;
+        }
+
+        #register-area-form-name input,
+        #register-area-form-birthday input{
+            margin-left: 8px;
+        }
+
+        #register-area-btn {
+            width: 100%;
+            height: 60px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #register {
+            font-size: 16px;
+            width: 200px;
+            border-radius: 5px;
+            height: 30px;
+            background-color: #dc0001;
+            border: none;
+            color: #fff;
+        }
+
+        #register:hover {
+            cursor: pointer;
+            transform: scale(1.05);
+        }
+
+        #register:active {
+            transform: scale(0.95);  
+        }
     </style>
 </head>
 
@@ -41,7 +162,52 @@
             <span>，你好!</span>
         </div>
     </header>
-
+    <div id="container-register">
+        <div id="register-area">
+            <div id="register-area-title">
+                <p>立即註冊</p>
+            </div>
+            <div id="register-area-register">
+                <p>已經擁有 AI筆電商城帳號嗎？</p>
+                <a href="">立即登入</a>
+            </div>
+            <form action="register.do" method="post">
+                <div id="register-area-form">
+                    <div id="register-area-form-account">
+                        <label for="account">帳號:</label>
+                        <input type="text" name="account" id="account" placeholder="請輸入帳號" minlength="6" maxlength="20" required>
+                    </div>
+                    <div id="register-area-form-password">
+                        <label for="password">密碼:</label>
+                        <input type="text" name="password" id="password" placeholder="請輸入密碼" minlength="6" maxlength="20" required>
+                    </div>
+                    <div id="register-area-form-id">
+                        <label for="id">身分證字號:</label>
+                        <input type="text" name="id" id="id" placeholder="請輸入身分證字號" pattern="[A-Z][1289][0-9]{8}" required>
+                    </div>
+                    <div id="register-area-form-email">
+                        <label for="email">E-mail:</label>
+                        <input type="text" name="email" id="email" placeholder="請輸入E-mail" required>
+                    </div>
+                    <div id="register-area-form-phone">
+                        <label for="phone">電話號碼:</label>
+                        <input type="text" name="phone" id="phone" placeholder="請輸入電話號碼" required>
+                    </div>
+                    <div id="register-area-form-name">
+                        <label for="name">姓名:</label>
+                        <input type="text" name="name" id="name" placeholder="請輸入姓名"  minlength="2" maxlength="20" required>
+                    </div>
+                    <div id="register-area-form-birthday">
+                        <label for="birthday">生日:</label>
+                        <input type="date" name="birthday" id="birthday" placeholder="請輸入生日" required>
+                    </div>
+                    <div id="register-area-btn">
+                        <input type="submit" id="register" value="註冊">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
     <footer>
         <h3>AI筆電商城&copy;2024-09~</h3>
         <p>本活動頁面展示之商品與贈品資訊，以銷售網頁與購物車顯示為準！</p>
