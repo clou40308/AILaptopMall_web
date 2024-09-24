@@ -9,29 +9,33 @@
     <link rel="stylesheet" type="text/css" href="style/header.css">
     <link rel="stylesheet" type="text/css" href="style/footer.css">
     <style>
-        #container-register{
-            height: 900px;
+        #container-register {
+            height: 950px;
             display: flex;
             justify-content: center;
             align-items: center;
-            background-image: url(./images/background-img.jpg); 
+            background-image: url(./images/background-img.jpg);
         }
+
         #register-area {
             background-color: #fff;
-            height: 800px;
+            height: 850px;
             width: 500px;
         }
-        #register-area-title{
+
+        #register-area-title {
             width: 100%;
             height: 60px;
             display: flex;
             justify-content: center;
             align-items: center;
         }
+
         #register-area-title p {
             font-size: 22px;
             font-weight: 700;
         }
+
         #register-area-register {
             width: 100%;
             height: 40px;
@@ -52,7 +56,9 @@
         #register-area-form-email,
         #register-area-form-phone,
         #register-area-form-name,
-        #register-area-form-birthday {
+        #register-area-form-birthday,
+        #register-area-form-gender,
+        #register-area-form-captcha {
             width: 100%;
             height: 50px;
             display: flex;
@@ -61,25 +67,58 @@
             margin-top: 5px;
         }
 
+        #register-area-form-address {
+            width: 100%;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            margin-top: 5px;
+        }
+
+        #register-area-form-subscribed {
+            width: 100%;
+            height: 50px;
+            display: flex;
+            align-items: center;
+        }
+        #register-area-form-subscribed input{
+            margin-left: 167px;
+        }
+
+        #register-area-form-subscribed label{
+            margin-left: 12px;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
         #register-area-form-account label,
         #register-area-form-password label,
         #register-area-form-id label,
         #register-area-form-email label,
         #register-area-form-phone label,
         #register-area-form-name label,
-        #register-area-form-birthday label {
+        #register-area-form-birthday label,
+        #register-area-form-gender label,
+        #register-area-form-address label,
+        #register-area-form-captcha label {
             margin-right: 12px;
             font-size: 18px;
             font-weight: bold;
         }
 
-        #register-area-form-account input ,
+        #register-area-form-address label {
+            margin-left: 104px;
+            margin-right: 20px;
+        }
+
+        #register-area-form-account input,
         #register-area-form-password input,
         #register-area-form-id input,
         #register-area-form-email input,
         #register-area-form-phone input,
         #register-area-form-name input,
-        #register-area-form-birthday input{
+        #register-area-form-birthday input,
+        #register-area-form-captcha input {
             height: 30px;
             width: 200px;
             font-size: 16px;
@@ -88,21 +127,75 @@
             padding-right: 10px;
         }
 
-        #register-area-form-id input{
+        #register-area-form-id input {
             margin-right: 50px;
         }
 
-        #register-area-form-email input{
+        #register-area-form-email input {
             margin-right: 14px;
         }
 
-        #register-area-form-phone input{
+        #register-area-form-phone input {
             margin-right: 28px;
         }
 
         #register-area-form-name input,
-        #register-area-form-birthday input{
+        #register-area-form-birthday input {
             margin-left: 8px;
+        }
+
+        #register-area-form-captcha input {
+            margin-right: 17px;
+        }
+
+        #register-area-form-gender select {
+            height: 33px;
+            width: 225px;
+            font-size: 16px;
+            border-radius: 4px;
+            padding-left: 10px;
+            padding-right: 10px;
+            margin-left: 8px;
+        }
+
+        #register-area-form-address textarea {
+            height: 50px;
+            width: 230px;
+            font-size: 16px;
+            border-radius: 4px;
+            padding-left: 10px;
+            padding-right: 10px;
+            padding-top: 5px;
+        }
+
+
+        #captcha-img {
+            width: 100%;
+            height: 50px;
+            display: flex;
+        }
+
+        #captchaImg {
+            width: 100px;
+            height: 30px;
+            margin-left: 165px;
+        }
+
+        #refreshImg {
+            margin-left: 5px;
+            width: 30px;
+            height: 30px;
+        }
+
+        #refreshImg:hover {
+            cursor: pointer;
+            transform: scale(1.1);
+            transition: transform 0.3s ease;
+        }
+
+        #refreshImg:active {
+            transform: scale(0.9);
+            transition: transform 0.1s ease;
         }
 
         #register-area-btn {
@@ -129,7 +222,7 @@
         }
 
         #register:active {
-            transform: scale(0.95);  
+            transform: scale(0.95);
         }
     </style>
 </head>
@@ -175,15 +268,18 @@
                 <div id="register-area-form">
                     <div id="register-area-form-account">
                         <label for="account">帳號:</label>
-                        <input type="text" name="account" id="account" placeholder="請輸入帳號" minlength="6" maxlength="20" required>
+                        <input type="text" name="account" id="account" placeholder="請輸入帳號" minlength="6" maxlength="20"
+                            required>
                     </div>
                     <div id="register-area-form-password">
                         <label for="password">密碼:</label>
-                        <input type="text" name="password" id="password" placeholder="請輸入密碼" minlength="6" maxlength="20" required>
+                        <input type="text" name="password" id="password" placeholder="請輸入密碼" minlength="6"
+                            maxlength="20" required>
                     </div>
                     <div id="register-area-form-id">
                         <label for="id">身分證字號:</label>
-                        <input type="text" name="id" id="id" placeholder="請輸入身分證字號" pattern="[A-Z][1289][0-9]{8}" required>
+                        <input type="text" name="id" id="id" placeholder="請輸入身分證字號" pattern="[A-Z][1289][0-9]{8}"
+                            required>
                     </div>
                     <div id="register-area-form-email">
                         <label for="email">E-mail:</label>
@@ -195,11 +291,36 @@
                     </div>
                     <div id="register-area-form-name">
                         <label for="name">姓名:</label>
-                        <input type="text" name="name" id="name" placeholder="請輸入姓名"  minlength="2" maxlength="20" required>
+                        <input type="text" name="name" id="name" placeholder="請輸入姓名" minlength="2" maxlength="20"
+                            required>
                     </div>
                     <div id="register-area-form-birthday">
                         <label for="birthday">生日:</label>
                         <input type="date" name="birthday" id="birthday" placeholder="請輸入生日" required>
+                    </div>
+                    <div id="register-area-form-gender">
+                        <label for="gender">性別:</label>
+                        <select name="gender" id="gender" required>
+                            <option value="">請選擇性別</option>
+                            <option value="M">男</option>
+                            <option value="F">女</option>
+                            <option value="O">不願透漏</option>
+                        </select>
+                    </div>
+                    <div id="register-area-form-address">
+                        <label for="address">地址:</label>
+                        <textarea name="address" id="address" rows="2" cols=30></textarea>
+                    </div>
+                    <div id="register-area-form-subscribed">
+                        <input type="checkbox" name="subscribed" id="subscribed"><label for="subscribed">是否訂閱電子報</label>
+                    </div>
+                    <div id="register-area-form-captcha">
+                        <label for="captcha">驗證碼:</label>
+                        <input type="text" name="captcha" id="captcha" required placeholder="請輸入驗證碼">
+                    </div>
+                    <div id="captcha-img">
+                        <img src="./images/captcha.png" alt="" id="captchaImg">
+                        <img src="./images/refresh.png" alt="" id="refreshImg" onclick="refreshCaptcha">
                     </div>
                     <div id="register-area-btn">
                         <input type="submit" id="register" value="註冊">
