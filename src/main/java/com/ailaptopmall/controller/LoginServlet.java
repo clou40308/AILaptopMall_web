@@ -12,10 +12,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.ailaptopmall.entity.Member;
+import com.ailaptopmall.entity.Customer;
 import com.ailaptopmall.exception.AILMException;
 import com.ailaptopmall.exception.LoginFailedException;
-import com.ailaptopmall.service.MemberService;
+import com.ailaptopmall.service.CustomerService;
 
 /**
  * Servlet implementation class LoginServlet
@@ -65,9 +65,9 @@ public class LoginServlet extends HttpServlet {
 
 		// 2.檢查無誤，呼叫商業邏輯: CustomerService.login
 		if (errors.isEmpty()) {
-			MemberService service = new MemberService();
+			CustomerService service = new CustomerService();
 			try {
-				Member c = service.login(account, password);
+				Customer c = service.login(account, password);
 
 				// 3.1 內部轉交(forward)成功 login_ok.jsp
 				session.setAttribute("member", c);

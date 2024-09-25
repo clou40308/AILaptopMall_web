@@ -12,10 +12,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.ailaptopmall.entity.Member;
+import com.ailaptopmall.entity.Customer;
 import com.ailaptopmall.exception.AILMDataInvalidException;
 import com.ailaptopmall.exception.AILMException;
-import com.ailaptopmall.service.MemberService;
+import com.ailaptopmall.service.CustomerService;
 
 
 /**
@@ -78,25 +78,25 @@ public class RegisterServlet extends HttpServlet {
 		
 		//2.若無誤，呼叫商業邏輯
 		if(errors.isEmpty()){			
-			Member m = new Member();
+			Customer c = new Customer();
 			try{
-				m.setAccount(account);
-				m.setPassword(password);
-				m.setId(id);
-				m.setEmail(email);
-				m.setPhone(phone);
-				m.setName(name);
-				m.setBirthday(birthday);
-				m.setGender(gender.charAt(0));
+				c.setAccount(account);
+				c.setPassword(password);
+				c.setId(id);
+				c.setEmail(email);
+				c.setPhone(phone);
+				c.setName(name);
+				c.setBirthday(birthday);
+				c.setGender(gender.charAt(0));
 				
-				m.setAddress(address);
-				m.setSubscribed(subscribed!=null);
+				c.setAddress(address);
+				c.setSubscribed(subscribed!=null);
 				
-				MemberService service = new MemberService();
-				service.register(m);
+				CustomerService service = new CustomerService();
+				service.register(c);
 				
 				//3.1 內部轉交(forward)成功 register_ok.jsp
-				request.setAttribute("member", m);
+				request.setAttribute("member", c);
 				RequestDispatcher dispatcher = 
 						request.getRequestDispatcher("register_ok.jsp");
 				dispatcher.forward(request, response);
