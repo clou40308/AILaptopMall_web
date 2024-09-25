@@ -98,7 +98,7 @@ public class RegisterServlet extends HttpServlet {
 				//3.1 內部轉交(forward)成功 register_ok.jsp
 				request.setAttribute("member", c);
 				RequestDispatcher dispatcher = 
-						request.getRequestDispatcher("register_ok.jsp");
+						request.getRequestDispatcher("register_success.jsp");
 				dispatcher.forward(request, response);
 				return;
 				

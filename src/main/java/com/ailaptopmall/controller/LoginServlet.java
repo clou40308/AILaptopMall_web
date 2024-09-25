@@ -72,7 +72,7 @@ public class LoginServlet extends HttpServlet {
 				// 3.1 內部轉交(forward)成功 login_ok.jsp
 				session.setAttribute("member", c);
 				// session.setMaxInactiveInterval(10); //sec., 小心這行不要亂加
-				RequestDispatcher dispatcher = request.getRequestDispatcher("login_ok.jsp");
+				RequestDispatcher dispatcher = request.getRequestDispatcher("login_success.jsp");
 				dispatcher.forward(request, response);
 				return;
 			} catch (LoginFailedException e) {
