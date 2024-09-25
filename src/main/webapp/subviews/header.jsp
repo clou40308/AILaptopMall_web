@@ -9,7 +9,7 @@
         </div>
         <div id="search-bar">
             <form action="" method="get">
-                <img id="search-bar-img" src="./images/search_icon.png" alt="">
+                <img id="search-bar-img" src="<%= request.getContextPath() %>/images/search_icon.png" alt="">
                 <input id="search-bar-keyword" type="search" name="keyword" required placeholder="搜尋商品">
                 <input id="search-bar-submit" type="submit" value="查詢">
             </form>
@@ -21,14 +21,14 @@
             <a href="">買筆電</a>
             <hr id="account-area-hr">
             <% if(member==null){ //尚未登入 %>
-            <a href="./login.jsp">登入</a>
+            <a href="<%= request.getContextPath() %>/login.jsp">登入</a>
             <hr id="account-area-hr">
-            <a href="./register.jsp">註冊</a>
+            <a href="<%= request.getContextPath() %>/register.jsp">註冊</a>
             <hr id="account-area-hr">
             <% }else{ //已經登入%>
-            <a href="./logout.do">登出</a>
+            <a href="<%= request.getContextPath() %>/logout.do">登出</a>
             <hr id="account-area-hr">
-            <a href="">修改會員</a>
+            <a href="<%= request.getContextPath() %>/member/update.jsp">修改會員</a>
             <hr id="account-area-hr">
             <% } %>
             <span><%= member!=null?member.getName()+"，你好!":"" %></span>
