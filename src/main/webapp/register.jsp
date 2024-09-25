@@ -1,3 +1,6 @@
+<%@page import="com.ailaptopmall.entity.Customer"%>
+<%@page import="java.util.List"%>
+<%@page pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 
@@ -8,9 +11,40 @@
     <link rel="stylesheet" type="text/css" href="style/ailm.css">
     <link rel="stylesheet" type="text/css" href="style/header.css">
     <link rel="stylesheet" type="text/css" href="style/footer.css">
+    <script src="https://code.jquery.com/jquery-3.0.0.js"
+        integrity="sha256-jrPLZ+8vDxt2FnE1zvZXCkCcebI/C8Dt5xyaQBjxQIo=" crossorigin="anonymous"></script>
+     <script>
+   		//$(document).ready(init);
+		$(init);
+
+		function init(){
+			//alert("init");
+			<% if(request.getMethod().equals("POST")){ %>
+			repopulateFormData();
+		}
+		
+		function repopulateFormData(){
+			$("input[name=account]").val('<%= request.getParameter("account")%>');
+			$("input[name=password]").val('<%= request.getParameter("password")%>');
+			$("input[name=id]").val('<%= request.getParameter("id")%>');
+			$("input[name=email]").val('<%= request.getParameter("email")%>');
+			$("input[name=phone]").val('<%= request.getParameter("phone")%>');
+			$("input[name=name]").val('<%= request.getParameter("name")%>');
+			$("input[name=birthday]").val('<%= request.getParameter("birthday")%>');
+			$("textarea[name=address]").text('<%= request.getParameter("address")%>');
+			
+			$("select[name=gender]").val('<%= request.getParameter("gender")%>');
+			$("input[name=subscribed]").prop('checked', <%= request.getParameter("subscribed")!=null%>);
+			<% } %>
+		}
+        function refreshCaptcha() {
+            //更新驗證碼
+            captchaImg.src = "images/captcha.png?renew=" + new Date();
+        }
+    </script>
     <style>
         #container-register {
-            height: 950px;
+            height: 1000px;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -19,7 +53,7 @@
 
         #register-area {
             background-color: #fff;
-            height: 850px;
+            height: 900px;
             width: 500px;
         }
 
@@ -224,37 +258,23 @@
         #register:active {
             transform: scale(0.95);
         }
+        
+        #theErrorsDiv{
+        	width: 100%;
+            height: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 10px;
+            color: #dc0001;
+        }
+        
     </style>
 </head>
 
 <body>
-    <header>
-        <div id="header-title">
-            <h2><a href="./">AI筆電商城</a></h2>
-            <hr id="header-title-hr">
-            <span id="header-title-span">助你成就每一刻</span>
-        </div>
-        <div id="search-bar">
-            <form action="" method="get">
-                <img id="search-bar-img" src="./images/search_icon.png" alt="">
-                <input id="search-bar-keyword" type="search" name="keyword" required placeholder="搜尋商品">
-                <input id="search-bar-submit" type="submit" value="查詢">
-            </form>
-        </div>
-        <div id="account-area">
-            <a href="">買筆電</a>
-            <hr id="account-area-hr">
-            <a href="">登入</a>
-            <hr id="account-area-hr">
-            <a href="">註冊</a>
-            <hr id="account-area-hr">
-            <a href="">登出</a>
-            <hr id="account-area-hr">
-            <a href="">修改會員</a>
-            <hr id="account-area-hr">
-            <span>，你好!</span>
-        </div>
-    </header>
+	<jsp:include page="./subviews/header.jsp" />
+	
     <div id="container-register">
         <div id="register-area">
             <div id="register-area-title">
@@ -262,7 +282,7 @@
             </div>
             <div id="register-area-register">
                 <p>已經擁有 AI筆電商城帳號嗎？</p>
-                <a href="">立即登入</a>
+                <a href="./login.jsp">立即登入</a>
             </div>
             <form action="register.do" method="post">
                 <div id="register-area-form">
@@ -273,7 +293,7 @@
                     </div>
                     <div id="register-area-form-password">
                         <label for="password">密碼:</label>
-                        <input type="text" name="password" id="password" placeholder="請輸入密碼" minlength="6"
+                        <input type="password" name="password" id="password" placeholder="請輸入密碼" minlength="6"
                             maxlength="20" required>
                     </div>
                     <div id="register-area-form-id">
@@ -296,15 +316,15 @@
                     </div>
                     <div id="register-area-form-birthday">
                         <label for="birthday">生日:</label>
-                        <input type="date" name="birthday" id="birthday" placeholder="請輸入生日" required>
+                        <input type="date" name="birthday" id="birthday" placeholder="請輸入生日" required max="<%= LocalDate.now().plusYears(-Customer.MIN_AGE)  %>">
                     </div>
                     <div id="register-area-form-gender">
                         <label for="gender">性別:</label>
                         <select name="gender" id="gender" required>
                             <option value="">請選擇性別</option>
-                            <option value="M">男</option>
-                            <option value="F">女</option>
-                            <option value="O">不願透漏</option>
+                            <option value="<%= Customer.MALE %>">男</option>
+                            <option value="<%= Customer.FEMALE %>">女</option>
+                            <option value="<%= Customer.OTHERS %>">不願透漏</option>
                         </select>
                     </div>
                     <div id="register-area-form-address">
@@ -320,8 +340,12 @@
                     </div>
                     <div id="captcha-img">
                         <img src="./images/captcha.png" alt="" id="captchaImg">
-                        <img src="./images/refresh.png" alt="" id="refreshImg" onclick="refreshCaptcha">
+                        <img src="./images/refresh.png" alt="" id="refreshImg" onclick="refreshCaptcha()">
                     </div>
+                    <%
+ 		 					List<String> errors = (List<String>)request.getAttribute("errors");		
+					%>
+					<div id="theErrorsDiv">	<%= (errors!=null?errors:"")%></div>
                     <div id="register-area-btn">
                         <input type="submit" id="register" value="註冊">
                     </div>
@@ -329,11 +353,8 @@
             </form>
         </div>
     </div>
-    <footer>
-        <h3>AI筆電商城&copy;2024-09~</h3>
-        <p>本活動頁面展示之商品與贈品資訊，以銷售網頁與購物車顯示為準！</p>
-        <p>AI筆電商城版權所有，轉載必究</p>
-    </footer>
+    
+	<%@include file="./subviews/footer.jsp" %>	
 </body>
 
 </html>

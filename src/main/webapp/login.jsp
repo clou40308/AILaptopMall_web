@@ -1,3 +1,5 @@
+<%@page import="java.util.List"%>
+<%@page pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 
@@ -11,6 +13,21 @@
     <script src="https://code.jquery.com/jquery-3.0.0.js"
         integrity="sha256-jrPLZ+8vDxt2FnE1zvZXCkCcebI/C8Dt5xyaQBjxQIo=" crossorigin="anonymous"></script>
     <script>
+		//$(document).ready(init);
+		$(init);
+
+		function init(){
+			//alert("init");
+			<% if(request.getMethod().equals("POST")){ %>
+			repopulateFormData();
+		}
+		
+		function repopulateFormData(){
+			$("input[name=account]").val('<%= request.getParameter("account")%>');
+			$("input[name=password]").val('<%= request.getParameter("password")%>');
+			<% } %>
+		}
+		
         function refreshCaptcha() {
             //更新驗證碼
             captchaImg.src = "images/captcha.png?renew=" + new Date();
@@ -222,37 +239,27 @@
         #login:active {
             transform: scale(0.95);  
         }
+        
+        #theErrorsDiv{
+        	width: 100%;
+            height: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 10px;
+            color: #dc0001;
+        }
+        
     </style>
 </head>
 
 <body>
-    <header>
-        <div id="header-title">
-            <h2><a href="./">AI筆電商城</a></h2>
-            <hr id="header-title-hr">
-            <span id="header-title-span">助你成就每一刻</span>
-        </div>
-        <div id="search-bar">
-            <form action="" method="get">
-                <img id="search-bar-img" src="./images/search_icon.png" alt="">
-                <input id="search-bar-keyword" type="search" name="keyword" required placeholder="搜尋商品">
-                <input id="search-bar-submit" type="submit" value="查詢">
-            </form>
-        </div>
-        <div id="account-area">
-            <a href="">買筆電</a>
-            <hr id="account-area-hr">
-            <a href="">登入</a>
-            <hr id="account-area-hr">
-            <a href="">註冊</a>
-            <hr id="account-area-hr">
-            <a href="">登出</a>
-            <hr id="account-area-hr">
-            <a href="">修改會員</a>
-            <hr id="account-area-hr">
-            <span>，你好!</span>
-        </div>
-    </header>
+	<% request.setCharacterEncoding("UTF-8"); %>
+	
+	<jsp:include page="./subviews/header.jsp" >
+		<jsp:param value="登入" name="subheader"/>
+	</jsp:include>
+	
     <div id="container-login">
         <div id="login-area">
             <div id="login-area-title">
@@ -260,7 +267,7 @@
             </div>
             <div id="login-area-register">
                 <p>沒有 AI筆電商城帳號？</p>
-                <a href="">立即註冊</a>
+                <a href="./register.jsp">立即註冊</a>
             </div>
             <form action="login.do" method="post">
                 <div id="login-area-form">
@@ -279,10 +286,16 @@
                         <input type="text" name="captcha" id="captcha" required placeholder="請輸入驗證碼">
                     </div>
                     <div id="captcha-img">
-                        <img src="./images/captcha.png" alt="" id="captchaImg">
-                        <img src="./images/refresh.png" alt="" id="refreshImg" onclick="refreshCaptcha">
+                        <img src="./images/captcha.png" alt="" id="captchaImg" >
+                        <img src="./images/refresh.png" alt="" id="refreshImg" onclick="refreshCaptcha()">
                         <a href="" id="forget-password">忘記密碼</a>
                     </div>
+                    <%
+		 					List<String> errors =  (List<String>)request.getAttribute("errors");		
+					%>
+					<div id="theErrorsDiv">
+						<%= errors!=null?errors:"" %>		
+					</div>
                     <div id="login-area-btn">
                         <input type="submit" id="login" value="登入">
                     </div>
@@ -290,11 +303,8 @@
             </form>
         </div>
     </div>
-    <footer>
-        <h3>AI筆電商城&copy;2024-09~</h3>
-        <p>本活動頁面展示之商品與贈品資訊，以銷售網頁與購物車顯示為準！</p>
-        <p>AI筆電商城版權所有，轉載必究</p>
-    </footer>
+    
+	<%@include file="./subviews/footer.jsp" %>	
 </body>
 
 </html>

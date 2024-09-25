@@ -57,21 +57,21 @@ public class RegisterServlet extends HttpServlet {
 		String subscribed = request.getParameter("subscribed");
 		
 		//並檢查之
-		if(account==null || account.length()==0) errors.add("必須輸入帳號.");
-		if(password==null || password.length()==0) errors.add("必須輸入密碼.");
-		if(id==null || (id=id.trim()).length()==0) errors.add("必須輸入身分證字號.");			
-		if(email==null || (email=email.trim()).length()==0) errors.add("必須輸入email.");
-		if(phone==null || (phone=phone.trim()).length()==0) errors.add("必須輸入手機.");
-		if(name==null || (name=name.trim()).length()==0) errors.add("必須輸入姓名.");
-		if(birthday==null || birthday.length()==0) errors.add("必須輸入生日.");
+		if(account==null || account.length()==0) errors.add("必須輸入帳號");
+		if(password==null || password.length()==0) errors.add("必須輸入密碼");
+		if(id==null || (id=id.trim()).length()==0) errors.add("必須輸入身分證字號");			
+		if(email==null || (email=email.trim()).length()==0) errors.add("必須輸入email");
+		if(phone==null || (phone=phone.trim()).length()==0) errors.add("必須輸入手機");
+		if(name==null || (name=name.trim()).length()==0) errors.add("必須輸入姓名");
+		if(birthday==null || birthday.length()==0) errors.add("必須輸入生日");
 		if(gender==null || gender.length()!=1) errors.add("必須選擇性別");
 		
 		if(captcha ==null || (captcha=captcha.trim()).length()==0) {
-				errors.add("必須輸入驗證碼.");
+				errors.add("必須輸入驗證碼");
 		}else {
 			String captchaString = (String)session.getAttribute("captchaString");
 			if(!captcha.equalsIgnoreCase(captchaString)) {
-				errors.add("驗證碼不正確.");
+				errors.add("驗證碼不正確");
 			}
 		}
 		session.removeAttribute("captchaString");
@@ -95,7 +95,7 @@ public class RegisterServlet extends HttpServlet {
 				CustomerService service = new CustomerService();
 				service.register(c);
 				
-				//3.1 內部轉交(forward)成功 register_ok.jsp
+				//3.1 內部轉交(forward)成功 register_success.jsp
 				request.setAttribute("member", c);
 				RequestDispatcher dispatcher = 
 						request.getRequestDispatcher("register_success.jsp");

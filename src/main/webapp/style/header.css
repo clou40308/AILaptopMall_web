@@ -88,10 +88,15 @@ a {
     display: flex;
 }
 
-#account-area a,
-span {
+#account-area a {
     padding-left: 20px;
     width: 70px;
+    margin-top: 27px;
+}
+
+#account-area span{
+    padding-left: 20px;
+    width: 110px;
     margin-top: 27px;
 }
 

@@ -50,15 +50,15 @@ public class LoginServlet extends HttpServlet {
 
 		// 檢查必要欄位是否正確輸入
 		if (account == null || (account = account.trim()).length() == 0)
-			errors.add("必須輸入帳號.");
+			errors.add("必須輸入帳號");
 		if (password == null || password.length() == 0)
-			errors.add("必須輸入密碼.");
+			errors.add("必須輸入密碼");
 		if (captcha == null || (captcha = captcha.trim()).length() == 0) {
-			errors.add("必須輸入驗證碼.");
+			errors.add("必須輸入驗證碼");
 		} else {
 			String captchaString = (String) session.getAttribute("captchaString");
 			if (!captcha.equalsIgnoreCase(captchaString)) {
-				errors.add("驗證碼不正確.");
+				errors.add("驗證碼不正確");
 			}
 		}
 		session.removeAttribute("captchaString");
@@ -69,7 +69,7 @@ public class LoginServlet extends HttpServlet {
 			try {
 				Customer c = service.login(account, password);
 
-				// 3.1 內部轉交(forward)成功 login_ok.jsp
+				// 3.1 內部轉交(forward)成功 login_success.jsp
 				session.setAttribute("member", c);
 				// session.setMaxInactiveInterval(10); //sec., 小心這行不要亂加
 				RequestDispatcher dispatcher = request.getRequestDispatcher("login_success.jsp");
