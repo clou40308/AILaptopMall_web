@@ -42,6 +42,7 @@ public class UpdataMemberServlet extends HttpServlet {
 		
 		//1.讀取request中的form data: account,password,id,email,phone,name,birthday,gender,captcha
 										//address,subscribed
+		String account = request.getParameter("account");
 		String password = request.getParameter("password");
 		String id = request.getParameter("id");
 		String email = request.getParameter("email");
@@ -55,6 +56,7 @@ public class UpdataMemberServlet extends HttpServlet {
 		String subscribed = request.getParameter("subscribed");
 		
 		//並檢查之
+		if(account==null || account.length()==0) errors.add("必須輸入帳號");
 		if(password==null || password.length()==0) errors.add("必須輸入密碼");
 		if(id==null || (id=id.trim()).length()==0) errors.add("必須輸入身分證字號");			
 		if(email==null || (email=email.trim()).length()==0) errors.add("必須輸入email");
@@ -77,6 +79,7 @@ public class UpdataMemberServlet extends HttpServlet {
 		if(errors.isEmpty()){			
 			Customer c = new Customer();
 			try{
+				c.setAccount(account);
 				c.setPassword(password);
 				c.setId(id);
 				c.setEmail(email);
@@ -89,7 +92,7 @@ public class UpdataMemberServlet extends HttpServlet {
 				c.setSubscribed(subscribed!=null);
 				
 				CustomerService service = new CustomerService();
-				service.register(c);
+				service.update(c);
 				
 				//3.1 內部轉交(forward)成功 register_success.jsp
 				request.setAttribute("member", c);
@@ -105,14 +108,14 @@ public class UpdataMemberServlet extends HttpServlet {
 				this.log(e.getMessage(), e); //for admin
 			}catch(Exception e) { 
 				errors.add("系統發生錯誤:"+e.getMessage()+", 請聯絡Admin"); //for users
-				this.log("會員註冊，系統發生錯誤", e); //for admin				
+				this.log("會員修改，系統發生錯誤", e); //for admin				
 			}
 		}
 		
 		//3.2 內部轉交(forward)失敗的register.jsp
 		request.setAttribute("errors", errors);
 		RequestDispatcher dispatcher = 
-				request.getRequestDispatcher("register.jsp");
+				request.getRequestDispatcher("update.jsp");
 		dispatcher.forward(request, response);		
 	}
 

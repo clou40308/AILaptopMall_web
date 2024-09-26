@@ -41,7 +41,7 @@
 			
 			$("input[name=account]").val('${sessionScope.member.getAccount()}');
 			$("input[name=password]").val('${sessionScope.member.getPassword()}');
-			$("input[name=id]").val('${sessionScope.member.getPassword()}');
+			$("input[name=id]").val('${sessionScope.member.getId()}');
 			$("input[name=email]").val('${sessionScope.member.getEmail()}');
 			$("input[name=phone]").val('${sessionScope.member.getPhone()}');
 			$("input[name=name]").val('${sessionScope.member.getName()}');
@@ -287,7 +287,7 @@
                     <div id="update-area-form-account">
                         <label for="account">帳號:</label>
                         <input type="text" name="account" id="account" placeholder="請輸入帳號" minlength="6" maxlength="20"
-                            disabled >
+                             >
                     </div>
                     <div id="update-area-form-password">
                         <label for="password">密碼:</label>

@@ -5,6 +5,8 @@
         <div id="header-title">
             <h2><a href="./">AI筆電商城</a></h2>
             <hr id="header-title-hr">
+            <sub><%= request.getParameter("subheader")==null?"首頁":request.getParameter("subheader") %></sub>
+            <hr id="header-title-hr">
             <span id="header-title-span">助你成就每一刻</span>
         </div>
         <div id="search-bar">
