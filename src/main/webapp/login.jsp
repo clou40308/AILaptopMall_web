@@ -256,7 +256,7 @@
 <body>
 	<% request.setCharacterEncoding("UTF-8"); %>
 	
-	<jsp:include page="./subviews/header.jsp" >
+	<jsp:include page="/subviews/header.jsp" >
 		<jsp:param value="登入" name="subheader"/>
 	</jsp:include>
 	
@@ -304,7 +304,7 @@
         </div>
     </div>
     
-	<%@include file="./subviews/footer.jsp" %>	
+	<%@include file="/subviews/footer.jsp" %>	
 </body>
 
 </html>

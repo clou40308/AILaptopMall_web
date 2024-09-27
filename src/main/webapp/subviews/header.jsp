@@ -5,9 +5,9 @@
         <div id="header-title">
             <h2><a href="./">AI筆電商城</a></h2>
             <hr id="header-title-hr">
-            <sub><%= request.getParameter("subheader")==null?"首頁":request.getParameter("subheader") %></sub>
-            <hr id="header-title-hr">
             <span id="header-title-span">助你成就每一刻</span>
+            <hr id="header-title-hr">
+            <sub><%= request.getParameter("subheader")==null?"首頁":request.getParameter("subheader") %></sub>
         </div>
         <div id="search-bar">
             <form action="" method="get">
@@ -28,9 +28,9 @@
             <a href="<%= request.getContextPath() %>/register.jsp">註冊</a>
             <hr id="account-area-hr">
             <% }else{ //已經登入%>
-            <a href="<%= request.getContextPath() %>/logout.do">登出</a>
-            <hr id="account-area-hr">
             <a href="<%= request.getContextPath() %>/member/update.jsp">修改會員</a>
+            <hr id="account-area-hr">
+            <a href="<%= request.getContextPath() %>/logout.do">登出</a>
             <hr id="account-area-hr">
             <% } %>
             <span><%= member!=null?member.getName()+"，你好!":"" %></span>

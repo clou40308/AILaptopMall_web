@@ -37,7 +37,9 @@
 </head>
 
 <body>
-	<jsp:include page="./subviews/header.jsp" />
+	<jsp:include page="/subviews/header.jsp" >
+		<jsp:param value="登入成功" name="subheader"/>
+	</jsp:include>
 
     <div id="container-login-success">
         <div id="login-success-area">
@@ -50,7 +52,7 @@
         </div>
     </div>
 
-	<%@include file="./subviews/footer.jsp" %>	
+	<%@include file="/subviews/footer.jsp" %>	
 </body>
 
 </html>

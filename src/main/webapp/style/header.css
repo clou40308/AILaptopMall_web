@@ -9,14 +9,19 @@ header {
 }
 
 #header-title {
-    width: 300px;
+    width: 360px;
     margin-left: 100px;
     display: flex;
 }
 
+sub{
+	width: 90px;
+	margin-top: 34px;
+	margin-left: 8px;
+}
 
 h2 {
-    width: 150px;
+    width: 130px;
 }
 
 a {
@@ -37,7 +42,7 @@ a {
     margin-left: 10px;
     padding-left: 0px;
     font-size: 14px;
-    width: 180px;
+    width: 110px;
 }
 
 #search-bar {

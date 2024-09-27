@@ -65,7 +65,10 @@
 </head>
 
 <body>
-	<jsp:include page="../subviews/header.jsp" />
+	<jsp:include page="/subviews/header.jsp" >
+		<jsp:param value="404" name="subheader"/>
+	</jsp:include>
+	
 	<p>找不到檔案: <%= request.getAttribute("javax.servlet.error.request_uri")  %></p>
     <div id="container-404">
         <div id="area-404">
@@ -81,7 +84,8 @@
         </div>
     </div>
     
-    <%@include file="../subviews/footer.jsp" %>	
+    <%@include file="/subviews/footer.jsp" %>	
+    
 </body>
 
 </html>

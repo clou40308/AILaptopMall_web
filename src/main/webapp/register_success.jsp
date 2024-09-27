@@ -37,7 +37,9 @@
 </head>
 
 <body>
-	<jsp:include page="./subviews/header.jsp" />
+	<jsp:include page="/subviews/header.jsp" >
+		<jsp:param value="註冊成功" name="subheader"/>
+	</jsp:include>
 
     <div id="container-register-success">
         <div id="register-success-area">
@@ -50,7 +52,7 @@
         </div>
     </div>
 
-	<%@include file="./subviews/footer.jsp" %>	
+	<%@include file="/subviews/footer.jsp" %>	
 </body>
 
 </html>

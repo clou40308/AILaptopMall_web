@@ -23,7 +23,7 @@
 </head>
 
 <body>
-	<jsp:include page="./subviews/header.jsp" />
+	<jsp:include page="/subviews/header.jsp" />
 	
     <div id="site-logo">
         <div>
@@ -31,7 +31,7 @@
         </div>
     </div>
     
-	<%@include file="./subviews/footer.jsp" %>	
+	<%@include file="/subviews/footer.jsp" %>	
 </body>
 
 </html>
