@@ -20,7 +20,7 @@
         	<%				
 				Customer member = (Customer)session.getAttribute("member");
 			%>
-            <a href="">買筆電</a>
+            <a href="<%= request.getContextPath() %>/products_list.jsp">買筆電</a>
             <hr id="account-area-hr">
             <% if(member==null){ //尚未登入 %>
             <a href="<%= request.getContextPath() %>/login.jsp">登入</a>
