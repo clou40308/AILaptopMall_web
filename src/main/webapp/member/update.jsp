@@ -20,6 +20,8 @@
 		function init(){
 			//alert("init");
 			$("input[name=changePwd]").on("change", changePwd);
+            $("img[name=eyes_on]").on("click", showPwd);
+            $("img[name=eyes_off]").on("click", hidePwd);
 			<% if(request.getMethod().equals("POST")){ %>
 			//修改失敗要呼叫[repopulateFormData()];
 			repopulateFormData();
@@ -92,13 +94,19 @@
         	var isChecked = $(this).prop("checked");
         	$("#theNewPassword").prop("required", $(this).prop("checked"));
       		$("#theNewPassword").prop("disabled", !$(this).prop("checked"));
+            $("#password").prop("disabled", $(this).prop("checked"));
+      		$("#password").prop("required", !$(this).prop("checked"));
       		if($("#theNewPassword").prop("disabled")) theNewPassword.value="";  
             if(isChecked){		
         		$("img[name=theNewEyes_on]").on("click", showNewPwd);
             	$("img[name=theNewEyes_off]").on("click", hideNewPwd);
+                $("img[name=eyes_on]").off("click", showPwd);
+            	$("img[name=eyes_off]").off("click", hidePwd);
         	}else{
         		 $("img[name=theNewEyes_on]").off("click", showNewPwd);
         	     $("img[name=theNewEyes_off]").off("click", hideNewPwd);
+                 $("img[name=eyes_on]").on("click", showPwd);
+            	$("img[name=eyes_off]").on("click", hidePwd);
         	}	 
          }
     </script>
@@ -431,15 +439,15 @@
                     </div>
                     <div id="update-area-form-password">
                         <label for="password">原密碼:</label>
-                        <input type="password" name="password" id="password" required placeholder="請輸入密碼">
-                        <img src="../images/eyes_on.png" id="eyes_on" onclick="showPwd()">
-                        <img src="../images/eyes_off.png" id="eyes_off" onclick="hidePwd()">
+                        <input type="password" name="password" id="password" required placeholder="請輸入密碼" minlength="6" maxlength="20">
+                        <img src="../images/eyes_on.png" name="eyes_on"  id="eyes_on" >
+                        <img src="../images/eyes_off.png" name="eyes_off" id="eyes_off" >
                     </div>
                     <div id="update-area-form-new-password">
                         <fieldset>
                             <legend><input type="checkbox"  name="changePwd" >要修改密碼</legend>
                             <label for="theNewPassword" id="theNewPasswordLabel">新密碼:</label>
-                            <input type="password" name="theNewPassword" id="theNewPassword" disabled placeholder="請輸入密碼">
+                            <input type="password" name="theNewPassword" id="theNewPassword" disabled placeholder="請輸入密碼" minlength="6" maxlength="20">
                             <img src="../images/eyes_on.png" name="theNewEyes_on" id="theNewEyes_on" >
                             <img src="../images/eyes_off.png" name="theNewEyes_off" id="theNewEyes_off">
                         </fieldset>

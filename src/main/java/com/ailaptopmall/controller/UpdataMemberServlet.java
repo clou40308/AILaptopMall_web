@@ -44,6 +44,8 @@ public class UpdataMemberServlet extends HttpServlet {
 										//address,subscribed
 		String account = request.getParameter("account");
 		String password = request.getParameter("password");
+		String changePwd = request.getParameter("changePwd");
+		String theNewPassword = request.getParameter("theNewPassword");
 		String id = request.getParameter("id");
 		String email = request.getParameter("email");
 		String phone = request.getParameter("phone");	
@@ -57,7 +59,11 @@ public class UpdataMemberServlet extends HttpServlet {
 		
 		//並檢查之
 		if(account==null || account.length()==0) errors.add("必須輸入帳號");
-		if(password==null || password.length()==0) errors.add("必須輸入密碼");
+		if(changePwd !=null) {
+			if(theNewPassword==null || theNewPassword.length()==0) errors.add("必須輸入新密碼");
+		}else {
+			if(password==null || password.length()==0) errors.add("必須輸入密碼");
+		}
 		if(id==null || (id=id.trim()).length()==0) errors.add("必須輸入身分證字號");			
 		if(email==null || (email=email.trim()).length()==0) errors.add("必須輸入email");
 		if(phone==null || (phone=phone.trim()).length()==0) errors.add("必須輸入手機");
@@ -80,7 +86,11 @@ public class UpdataMemberServlet extends HttpServlet {
 			Customer c = new Customer();
 			try{
 				c.setAccount(account);
-				c.setPassword(password);
+				if(changePwd !=null) {
+					c.setPassword(theNewPassword);
+				}else {
+					c.setPassword(password);
+				}
 				c.setId(id);
 				c.setEmail(email);
 				c.setPhone(phone);

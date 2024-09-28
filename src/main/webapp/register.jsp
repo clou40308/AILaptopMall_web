@@ -366,7 +366,7 @@
                     </div>
                     <div id="register-area-form-password">
                         <label for="password">密碼:</label>
-                        <input type="password" name="password" id="password" required placeholder="請輸入密碼">
+                        <input type="password" name="password" id="password" required placeholder="請輸入密碼" minlength="6" maxlength="20">
                         <img src="./images/eyes_on.png" id="eyes_on" onclick="showPwd()">
                         <img src="./images/eyes_off.png" id="eyes_off" onclick="hidePwd()">
                     </div>
