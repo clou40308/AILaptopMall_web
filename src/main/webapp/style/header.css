@@ -92,21 +92,18 @@ a {
 #account-area {
     margin-right: 180px;
     display: flex;
-    border: 1px black solid;
 }
 
 #account-area a {
-    padding-left: 20px;
-    width: 70px;
+    width: 80px;
     margin-top: 27px;
-    border: 1px black solid;
+    text-align: center;
 }
 
 #account-area span{
-    padding-left: 20px;
-    width: 110px;
+    padding-left: 10px;
+    width: 120px;
     margin-top: 27px;
-    border: 1px black solid;
 }
 
 #account-area-hr {

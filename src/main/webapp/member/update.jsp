@@ -7,7 +7,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI筆電商城 更新會員資料</title>
+    <title>AI筆電商城 修改會員</title>
     <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/style/ailm.css">
     <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/style/header.css">
     <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/style/footer.css">
@@ -19,12 +19,13 @@
 
 		function init(){
 			//alert("init");
+			$("input[name=changePwd]").on("change", changePwd);
 			<% if(request.getMethod().equals("POST")){ %>
 			//修改失敗要呼叫[repopulateFormData()];
 			repopulateFormData();
 		}
 		
-		function repopulateFormData(){  //帶入剛才輸入的form data
+		function repopulateFormData(){ //帶入剛才輸入的form data
 			$("input[name=account]").val('<%= request.getParameter("account")%>');
 			$("input[name=password]").val('<%= request.getParameter("password")%>');
 			$("input[name=id]").val('<%= request.getParameter("id")%>');
@@ -38,7 +39,7 @@
 			$("input[name=subscribed]").prop('checked', <%= request.getParameter("subscribed")!=null%>);
 			
 			<% }else{%>
-			
+			//進入修改時帶入已登入的會員資料	
 			$("input[name=account]").val('${sessionScope.member.getAccount()}');
 			$("input[name=password]").val('${sessionScope.member.getPassword()}');
 			$("input[name=id]").val('${sessionScope.member.getId()}');
@@ -53,10 +54,53 @@
 			
 			<% } %>
 		}
+		
         function refreshCaptcha() {
             //更新驗證碼
             captchaImg.src = "images/captcha.png?renew=" + new Date();
         }
+        
+        function hidePwd() {
+            //隱藏密碼
+            $("#eyes_on").css("display", "inline");
+            $("#eyes_off").css("display", "none");
+            $("#password").attr("type", "password");
+        }
+        
+        function showPwd() {
+            //顯示密碼
+            $("#eyes_on").css("display", "none");
+            $("#eyes_off").css("display", "inline");
+            $("#password").attr("type", "text");
+        }
+
+        function hideNewPwd() {
+            //隱藏密碼
+            $("#theNewEyes_on").css("display", "inline");
+            $("#theNewEyes_off").css("display", "none");
+            $("#theNewPassword").attr("type", "password");
+        }
+        
+        function showNewPwd() {
+            //顯示密碼
+            $("#theNewEyes_on").css("display", "none");
+            $("#theNewEyes_off").css("display", "inline");
+            $("#theNewPassword").attr("type", "text");
+        }
+
+        function changePwd(){ 
+        	var isChecked = $(this).prop("checked");
+        	$("#theNewPassword").prop("required", $(this).prop("checked"));
+      		$("#theNewPassword").prop("disabled", !$(this).prop("checked"));
+      		if($("#theNewPassword").prop("disabled")) theNewPassword.value="";  
+            if(isChecked){		
+        		$("img[name=theNewEyes_on]").on("click", showNewPwd);
+            	$("img[name=theNewEyes_off]").on("click", hideNewPwd);
+        	}else{
+        		 $("img[name=theNewEyes_on]").off("click", showNewPwd);
+        	     $("img[name=theNewEyes_off]").off("click", hideNewPwd);
+        	}	 
+         }
     </script>
     <style>
         #container-update {
@@ -69,7 +113,7 @@
 
         #update-area {
             background-color: #fff;
-            height: 900px;
+            height: 950px;
             width: 500px;
         }
 
@@ -87,7 +131,6 @@
         }
 
         #update-area-form-account,
-        #update-area-form-password,
         #update-area-form-id,
         #update-area-form-email,
         #update-area-form-phone,
@@ -128,13 +171,9 @@
         }
 
         #update-area-form-account label,
-        #update-area-form-password label,
         #update-area-form-id label,
         #update-area-form-email label,
         #update-area-form-phone label,
-        #update-area-form-name label,
-        #update-area-form-birthday label,
-        #update-area-form-gender label,
         #update-area-form-address label,
         #update-area-form-captcha label {
             margin-right: 12px;
@@ -142,13 +181,33 @@
             font-weight: bold;
         }
 
+        #update-area-form-name label{
+            margin-right: 12px;
+            margin-left: 8px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        
+        #update-area-form-birthday label{
+        	margin-right: 12px;
+            margin-left: 8px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        
+		#update-area-form-gender label{
+			margin-right: 12px;
+            margin-left: 8px;
+            font-size: 18px;
+            font-weight: bold;
+		}
+		
         #update-area-form-address label {
-            margin-left: 104px;
-            margin-right: 20px;
+            margin-left: 114px;
+            margin-right: 12px;
         }
 
         #update-area-form-account input,
-        #update-area-form-password input,
         #update-area-form-id input,
         #update-area-form-email input,
         #update-area-form-phone input,
@@ -175,11 +234,6 @@
             margin-right: 28px;
         }
 
-        #update-area-form-name input,
-        #update-area-form-birthday input {
-            margin-left: 8px;
-        }
-
         #update-area-form-captcha input {
             margin-right: 17px;
         }
@@ -191,7 +245,6 @@
             border-radius: 4px;
             padding-left: 10px;
             padding-right: 10px;
-            margin-left: 8px;
         }
 
         #update-area-form-address textarea {
@@ -204,6 +257,91 @@
             padding-top: 5px;
         }
 
+		#update-area-form-password {
+            width: 400px;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 10px;
+            position: absolute;
+            padding-left: 53px;
+        }
+
+		#update-area-form-new-password{
+			width: 490px;
+            height: 85px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 50px;
+            padding-left: 7px;
+		}
+		
+        #update-area-form-password label {
+            margin-left: 2px;
+            margin-right: 12px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        
+       	#theNewPasswordLabel {
+            margin-left: 5px;
+            margin-right: 9px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        #update-area-form-password input {
+            height: 30px;
+            width: 170px;
+            font-size: 16px;
+            border-radius: 4px;
+            padding-left: 10px;
+            padding-right: 40px;
+        }
+        
+        #theNewPassword {
+            height: 30px;
+            width: 170px;
+            font-size: 16px;
+            border-radius: 4px;
+            padding-left: 10px;
+            padding-right: 40px;
+        }
+
+        #eyes_on {
+            width: 25px;
+            height: 25px;
+            position: relative;
+            top: 0px;
+            left: -35px;
+        }
+        #theNewEyes_on{
+            width: 25px;
+            height: 25px;
+            position: relative;
+            top: 7px;
+            left: -35px;
+        }
+
+        #eyes_off {
+            width: 25px;
+            height: 25px;
+            display: none;
+            position: relative;
+            top: 0px;
+            left: -35px;
+        }
+
+        #theNewEyes_off{
+            width: 25px;
+            height: 25px;
+            display: none;
+            position: relative;
+            top: 7px;
+            left: -35px;
+        }
 
         #captcha-img {
             width: 100%;
@@ -276,25 +414,35 @@
 
 <body>
 	<jsp:include page="/subviews/header.jsp" >
-		<jsp:param value="更新會員資料" name="subheader"/>
+		<jsp:param value="修改會員" name="subheader"/>
 	</jsp:include>
 	
     <div id="container-update">
         <div id="update-area">
             <div id="update-area-title">
-                <p>更新會員資料</p>
+                <p>修改會員</p>
             </div>
-            <form action="update.do" method="post">
+            <form action="update.do" method="POST">
                 <div id="update-area-form">
                     <div id="update-area-form-account">
                         <label for="account">帳號:</label>
                         <input type="text" name="account" id="account" placeholder="請輸入帳號" minlength="6" maxlength="20"
-                             >
+                            readonly>
                     </div>
                     <div id="update-area-form-password">
-                        <label for="password">密碼:</label>
-                        <input type="password" name="password" id="password" placeholder="請輸入密碼" minlength="6"
-                            maxlength="20" required>
+                        <label for="password">原密碼:</label>
+                        <input type="password" name="password" id="password" required placeholder="請輸入密碼">
+                        <img src="../images/eyes_on.png" id="eyes_on" onclick="showPwd()">
+                        <img src="../images/eyes_off.png" id="eyes_off" onclick="hidePwd()">
+                    </div>
+                    <div id="update-area-form-new-password">
+                        <fieldset>
+                            <legend><input type="checkbox"  name="changePwd" >要修改密碼</legend>
+                            <label for="theNewPassword" id="theNewPasswordLabel">新密碼:</label>
+                            <input type="password" name="theNewPassword" id="theNewPassword" disabled placeholder="請輸入密碼">
+                            <img src="../images/eyes_on.png" name="theNewEyes_on" id="theNewEyes_on" >
+                            <img src="../images/eyes_off.png" name="theNewEyes_off" id="theNewEyes_off">
+                        </fieldset>
                     </div>
                     <div id="update-area-form-id">
                         <label for="id">身分證字號:</label>

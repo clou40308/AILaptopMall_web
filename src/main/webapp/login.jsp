@@ -32,18 +32,21 @@
             //更新驗證碼
             captchaImg.src = "images/captcha.png?renew=" + new Date();
         }
+        
         function hidePwd() {
             //隱藏密碼
             $("#eyes_on").css("display", "inline");
             $("#eyes_off").css("display", "none");
             $("#password").attr("type", "password");
         }
+        
         function showPwd() {
             //顯示密碼
             $("#eyes_on").css("display", "none");
             $("#eyes_off").css("display", "inline");
             $("#password").attr("type", "text");
         }
+        
     </script>
     <style>
         #container-login {
@@ -131,7 +134,7 @@
 
         #login-area-form-password input {
             height: 30px;
-            width: 164px;
+            width: 168px;
             font-size: 16px;
             border-radius: 4px;
             padding-left: 10px;
@@ -140,7 +143,7 @@
 
         #eyes_on {
             width: 25px;
-            width: 25px;
+            height: 25px;
             position: relative;
             top: 0px;
             left: -35px;
@@ -148,7 +151,7 @@
 
         #eyes_off {
             width: 25px;
-            width: 25px;
+            height: 25px;
             display: none;
             position: relative;
             top: 0px;

@@ -20,7 +20,7 @@ import com.ailaptopmall.service.CustomerService;
 /**
  * Servlet implementation class UpdataMemberServlet
  */
-@WebServlet("/member/update.do")
+@WebServlet("/member/update.do") // http://localhost:8080/ailaptopmall/member/update.do
 public class UpdataMemberServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -97,7 +97,7 @@ public class UpdataMemberServlet extends HttpServlet {
 				//3.1 內部轉交(forward)成功 register_success.jsp
 				request.setAttribute("member", c);
 				RequestDispatcher dispatcher = 
-						request.getRequestDispatcher("index.jsp");
+						request.getRequestDispatcher("update_success.jsp");
 				dispatcher.forward(request, response);
 				return;
 				
@@ -112,7 +112,7 @@ public class UpdataMemberServlet extends HttpServlet {
 			}
 		}
 		
-		//3.2 內部轉交(forward)失敗的register.jsp
+		//3.2 內部轉交(forward)失敗的update.jsp
 		request.setAttribute("errors", errors);
 		RequestDispatcher dispatcher = 
 				request.getRequestDispatcher("update.jsp");

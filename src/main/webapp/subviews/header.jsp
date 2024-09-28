@@ -3,7 +3,7 @@
 <!-- header.jsp start -->
     <header>
         <div id="header-title">
-            <h2><a href="./">AI筆電商城</a></h2>
+            <h2><a href="<%= request.getContextPath() %>/">AI筆電商城</a></h2>
             <hr id="header-title-hr">
             <span id="header-title-span">助你成就每一刻</span>
             <hr id="header-title-hr">

@@ -37,10 +37,26 @@
 			$("input[name=subscribed]").prop('checked', <%= request.getParameter("subscribed")!=null%>);
 			<% } %>
 		}
+		
         function refreshCaptcha() {
             //更新驗證碼
             captchaImg.src = "images/captcha.png?renew=" + new Date();
         }
+        
+        function hidePwd() {
+            //隱藏密碼
+            $("#eyes_on").css("display", "inline");
+            $("#eyes_off").css("display", "none");
+            $("#password").attr("type", "password");
+        }
+        
+        function showPwd() {
+            //顯示密碼
+            $("#eyes_on").css("display", "none");
+            $("#eyes_off").css("display", "inline");
+            $("#password").attr("type", "text");
+        }
+        
     </script>
     <style>
         #container-register {
@@ -85,7 +101,6 @@
         }
 
         #register-area-form-account,
-        #register-area-form-password,
         #register-area-form-id,
         #register-area-form-email,
         #register-area-form-phone,
@@ -99,6 +114,10 @@
             justify-content: center;
             align-items: center;
             margin-top: 5px;
+        }
+
+        #register-area-form-id{
+            margin-top:55px;
         }
 
         #register-area-form-address {
@@ -126,13 +145,9 @@
         }
 
         #register-area-form-account label,
-        #register-area-form-password label,
         #register-area-form-id label,
         #register-area-form-email label,
         #register-area-form-phone label,
-        #register-area-form-name label,
-        #register-area-form-birthday label,
-        #register-area-form-gender label,
         #register-area-form-address label,
         #register-area-form-captcha label {
             margin-right: 12px;
@@ -140,13 +155,33 @@
             font-weight: bold;
         }
 
+        #register-area-form-name label{
+            margin-right: 12px;
+            margin-left: 8px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        
+        #register-area-form-birthday label{
+        	margin-right: 12px;
+            margin-left: 8px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        
+		#register-area-form-gender label{
+			margin-right: 12px;
+            margin-left: 8px;
+            font-size: 18px;
+            font-weight: bold;
+		}
+		
         #register-area-form-address label {
-            margin-left: 104px;
-            margin-right: 20px;
+            margin-left: 114px;
+            margin-right: 12px;
         }
 
         #register-area-form-account input,
-        #register-area-form-password input,
         #register-area-form-id input,
         #register-area-form-email input,
         #register-area-form-phone input,
@@ -173,11 +208,6 @@
             margin-right: 28px;
         }
 
-        #register-area-form-name input,
-        #register-area-form-birthday input {
-            margin-left: 8px;
-        }
-
         #register-area-form-captcha input {
             margin-right: 17px;
         }
@@ -189,7 +219,6 @@
             border-radius: 4px;
             padding-left: 10px;
             padding-right: 10px;
-            margin-left: 8px;
         }
 
         #register-area-form-address textarea {
@@ -202,7 +231,49 @@
             padding-top: 5px;
         }
 
+		#register-area-form-password {
+            width: 400px;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 10px;
+            position: absolute;
+            padding-left: 53px;
+        }
 
+        #register-area-form-password label {
+            margin-left: 23px;
+            margin-right: 12px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        #register-area-form-password input {
+            height: 30px;
+            width: 170px;
+            font-size: 16px;
+            border-radius: 4px;
+            padding-left: 10px;
+            padding-right: 40px;
+        }
+
+        #eyes_on {
+            width: 25px;
+            height: 25px;
+            position: relative;
+            top: 0px;
+            left: -35px;
+        }
+
+        #eyes_off {
+            width: 25px;
+            height: 25px;
+            display: none;
+            position: relative;
+            top: 0px;
+            left: -35px;
+        }
         #captcha-img {
             width: 100%;
             height: 50px;
@@ -295,8 +366,9 @@
                     </div>
                     <div id="register-area-form-password">
                         <label for="password">密碼:</label>
-                        <input type="password" name="password" id="password" placeholder="請輸入密碼" minlength="6"
-                            maxlength="20" required>
+                        <input type="password" name="password" id="password" required placeholder="請輸入密碼">
+                        <img src="./images/eyes_on.png" id="eyes_on" onclick="showPwd()">
+                        <img src="./images/eyes_off.png" id="eyes_off" onclick="hidePwd()">
                     </div>
                     <div id="register-area-form-id">
                         <label for="id">身分證字號:</label>
