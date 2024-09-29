@@ -14,10 +14,12 @@
     <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/style/header.css">
     <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/style/footer.css">
     <style>
+    
        #container-product-list{
             height: 1000px;
             background-image: url(./images/background-img.jpg);
        }
+       
        nav{
        		height: 50px;
             border: 2px black solid;
@@ -31,7 +33,7 @@
        #productItem{
             display:inline-block;
             width:235px;
-            height: 350px;
+            height: 330px;
             background-color: #fff;
             vertical-align:top;
             box-shadow: 5px 5px 5px #888888;
@@ -81,10 +83,10 @@
 	<div id="container-product-list">
 	
         <nav>
-            <a href="?latest=">新品</a>
-            <a href="?maker=LENOVO">LENOVO</a>
-            <a href="?maker=HP">HP</a>
-            <a href="?">全部</a>
+            <a href="<%= request.getContextPath() %>/products_list.jsp?latest=">新品</a>
+            <a href="<%= request.getContextPath() %>/products_list.jsp?maker=LENOVO">LENOVO</a>
+            <a href="<%= request.getContextPath() %>/products_list.jsp?maker=HP">HP</a>
+            <a href="<%= request.getContextPath() %>/products_list.jsp?">全部</a>
         </nav>
         
 	<% 
@@ -119,8 +121,8 @@
 					Product p = list.get(i);
 			%>
 			<div id="productItem">
-                <a href=""><img src="<%= p.getPhotoUrl() %>"></a>
-                <a href=""><h4><%= p.getName() %></h4></a>
+                <a href="product_detail.jsp?productId=<%= p.getId() %>"><img src="<%= p.getPhotoUrl() %>"></a>
+                <a href="product_detail.jsp?productId=<%= p.getId() %>"><h4><%= p.getName() %></h4></a>
                 <div id="productItem-price">優惠價:<%= p instanceof SpecialOffer?((SpecialOffer)p).getDiscountString():"" %> $<%= p.getUnitPrice() %>元</div>	
             </div>
             <% } %>	
