@@ -1,4 +1,3 @@
-<%@page import="com.ailaptopmall.entity.Size"%>
 <%@page import="com.ailaptopmall.entity.SpecialOffer"%>
 <%@page import="com.ailaptopmall.service.ProductService"%>
 <%@page import="com.ailaptopmall.entity.Product"%>
@@ -13,29 +12,6 @@
     <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/style/ailm.css">
     <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/style/header.css">
     <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/style/footer.css">
-    <script src="https://code.jquery.com/jquery-3.0.0.js" integrity="sha256-jrPLZ+8vDxt2FnE1zvZXCkCcebI/C8Dt5xyaQBjxQIo=" crossorigin="anonymous"></script>
-    <script>	
-		$(document).ready(init);
-		
-		function init(){
-			$("#productMainData-size span").on("click", changeSizeData);
-		}
-		
-		function changeSizeData(){
-				//alert("alert");	
-			console.log("change Size Data:" , 
-					$(this).attr("title"), $(this).attr("data-release-date"),$(this).attr("data-stock"));
-			
-			var sizeName = $(this).attr("title");
-			var releaseDate = $(this).attr("data-release-date");
-			var stock = $(this).attr("data-stock");
-			
-			//修改畫面中指定位置的資料			
-			$("#theReleaseDate").text(releaseDate);
-			$("#theSizeStock").text( ", " + sizeName + "吋: "+ stock + "台");
-			$("input[name=quantity]").attr("max",  stock);	
-		}
-	</script>	
     <style>
        
        #container-product{
@@ -100,8 +76,7 @@
 	   #productMainData-ListPrice,
 	   #productMainData-UnitPrice,
 	   #productMainData-Stock,
-	   #productMainData-quantity,
-	   #productMainData-size{
+	   #productMainData-quantity{
 			height:	35px;
 			border: 1px black solid;
 	   }
@@ -115,8 +90,7 @@
 	   		font-weight: 550;
 	   }
 	   
-	   #productMainData-quantity label,
-	   #productMainData-size-label{
+	   #productMainData-quantity label{
 			font-size: 18px;
 	   		margin: 5px 0px;
 	   		font-weight: 550;
@@ -150,25 +124,6 @@
             transform: scale(0.95);  
         }
         
-        #productMainData-size-date{
-        	font-size: 20px;
-			margin-left: 8px;
-			cursor: pointer;
-        }
-		
-		/* HIDE RADIO */
-		#productMainData-size input[type=radio] { 
-		  	position: absolute;
-		  	opacity: 0;
-		  	width: 1px;
-		  	height: 1px;
-		}
-		
-				/* CHECKED STYLES */
-		#productMainData-size input[type=radio]:checked +span {
-		  	outline: 2px solid #ea1717;
-		}
-		
     </style>
 </head>
 
@@ -211,7 +166,7 @@
 						<h2><%= p.getName() %></h2>
 
 						<div id="productMainData-ReleaseDate">
-							<p>上架日期:<span id="theReleaseDate"><%= p.getReleaseDate() %></span></p>
+							<p>上架日期: <%= p.getReleaseDate() %></p>
 						</div>
 
 						<% if(p instanceof SpecialOffer) {%>
@@ -228,28 +183,12 @@
 						</div>
 
 						<div id="productMainData-Stock">
-							<p>庫存: 共<%= p.getStock() %>台<span id="theSizeStock"></span></p>
+							<p>庫存: <%= p.getStock() %>台</p>
 						</div>
 												
 						<form>
 							<input type="hidden" name="productId" value="<%= p.getId() %>">
-							
-							<% if(p.getSizeList()!=null && p.getSizeList().size()>0){%>
-								<div id="productMainData-size">
-									<label id="productMainData-size-label">螢幕尺吋:</label>
-									<% for(int i=0;i<p.getSizeList().size();i++) {
-										Size size = p.getSizeList().get(i);
-									%>
-								<label id="productMainData-size-date" name="productMainData-size-date">
-									<input type="radio" name="size" value="<%= size.getSizeName()%>" required>	
-									<span id="" title="<%= size.getSizeName() %>"
-									 data-release-date="<%= size.getReleaseDate() %>" 
-									 data-stock="<%= size.getStock() %>"><%= size.getSizeName()%></span>					
-								</label>
-									<% } %>
-								</div>
-							<% } %>
-												
+
 							<div id="productMainData-quantity">
 								<label>數量:</label>
 								<input type="number" name="quantity" required min="1" max="<%= p.getStock() %>">
