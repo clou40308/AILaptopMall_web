@@ -34,7 +34,28 @@
 			$("#theReleaseDate").text(releaseDate);
 			$("#theSizeStock").text( ", " + sizeName + "吋: "+ stock + "台");
 			$("input[name=quantity]").attr("max",  stock);	
+			ajaxGetSpecsOption(sizeName);
 		}
+		
+		function ajaxGetSpecsOption(colorName){
+			//Ajax請求->get_size_specs.jsp
+			var productId = $("input[name=productId]").val();
+			
+			$.ajax({
+				url: "get_size_specs.jsp?sizeName=" + sizeName 
+							+ "&productId="+productId,
+				method: "GET"
+			}).done(ajaxGetSpecsOptionDone);			
+		}
+		
+		function ajaxGetSpecsOptionDone(result, status, xhr){
+			//alert(result);
+			
+			//將選項套用在$("select[name=spec]")，顯示spec選單
+			$("select[name=spec]").html(result);
+		}
+		
+		
 	</script>	
     <style>
        
@@ -101,7 +122,8 @@
 	   #productMainData-UnitPrice,
 	   #productMainData-Stock,
 	   #productMainData-quantity,
-	   #productMainData-size{
+	   #productMainData-size,
+	   #productMainData-spec{
 			height:	35px;
 			border: 1px black solid;
 	   }
@@ -116,7 +138,8 @@
 	   }
 	   
 	   #productMainData-quantity label,
-	   #productMainData-size-label{
+	   #productMainData-size-label,
+	   #productMainData-spec label{
 			font-size: 18px;
 	   		margin: 5px 0px;
 	   		font-weight: 550;
@@ -167,6 +190,11 @@
 				/* CHECKED STYLES */
 		#productMainData-size input[type=radio]:checked +span {
 		  	outline: 2px solid #ea1717;
+		}
+		
+		#productMainData-spec select{
+			height: 30px;
+			width: 165px;
 		}
 		
     </style>
@@ -242,13 +270,23 @@
 									%>
 								<label id="productMainData-size-date" name="productMainData-size-date">
 									<input type="radio" name="size" value="<%= size.getSizeName()%>" required>	
-									<span id="" title="<%= size.getSizeName() %>"
+									<span title="<%= size.getSizeName() %>"
 									 data-release-date="<%= size.getReleaseDate() %>" 
 									 data-stock="<%= size.getStock() %>"><%= size.getSizeName()%></span>					
 								</label>
 									<% } %>
 								</div>
 							<% } %>
+							
+							<!-- 判斷有無規格資料 { -->
+							<% if(p.getSpecCount()>0) {%>							
+								<div id="productMainData-spec">
+									<label>規格:</label>
+									<select name="spec" required class="specSelect">
+										<option value="">請先選擇螢幕尺寸</option>
+									</select>
+								</div>							
+							<% } %>	
 												
 							<div id="productMainData-quantity">
 								<label>數量:</label>
