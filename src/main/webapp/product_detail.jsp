@@ -37,7 +37,7 @@
 			ajaxGetSpecsOption(sizeName);
 		}
 		
-		function ajaxGetSpecsOption(colorName){
+		function ajaxGetSpecsOption(sizeName){
 			//Ajax請求->get_size_specs.jsp
 			var productId = $("input[name=productId]").val();
 			
