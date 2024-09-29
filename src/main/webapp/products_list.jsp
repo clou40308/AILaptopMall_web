@@ -25,39 +25,68 @@
        }
        
        #product-list{
-
+            margin:15px 60px;
        }
+
        #productItem{
             display:inline-block;
-            width:250px;
-            height: 293px;
+            width:235px;
+            height: 350px;
+            background-color: #fff;
             vertical-align:top;
-            box-shadow: lightgray 0 0 5px;
+            box-shadow: 5px 5px 5px #888888;
             margin:5px;
             padding: 2px 1em;
             border: 1px black solid;
        }
+
        #productItem img{
-       width: 150px;display:block;margin: auto
+            width: 180px;
+            height: 180px;
+            display:block;
+            margin: auto;
        }
-		#productItem div{
-		text-align: center;
+
+       #productItem h4{
+            color: #4797d3;
+       }
+
+		#productItem-price{
+		    text-align: center;
+            color: #ea1717;
+            font-size: 18px;
+            font-weight: 650;
 		}
        
+        #no-product{
+            display: flex;
+            justify-content: center;
+        }
+
+        #no-product h2{
+            width: 200px;
+			color: #ea1717;
+        }
+        
     </style>
 </head>
 
 <body>
+	<% request.setCharacterEncoding("UTF-8"); %>
+	
 	<jsp:include page="/subviews/header.jsp" >
 		<jsp:param value="買筆電" name="subheader"/>
 	</jsp:include>
+	
 	<div id="container-product-list">
+	
         <nav>
             <a href="?latest=">新品</a>
             <a href="?maker=LENOVO">LENOVO</a>
             <a href="?maker=HP">HP</a>
             <a href="?">全部</a>
         </nav>
+        
 	<% 
 			//1.取得request的Form Data/QueryString
 			String keyword = request.getParameter("keyword");
@@ -80,8 +109,10 @@
 			
 			//若查無資料
 			if(list==null || list.size()==0){					
-	%>
-		<h2>查無產品資料</h2>
+	%>             
+        <div id="no-product">
+            <h2>查無產品資料!</h2>
+        </div>	
 	<%} else { %>
         <div id="product-list">
         	<% for(int i=0;i<list.size();i++){
@@ -90,12 +121,13 @@
 			<div id="productItem">
                 <a href=""><img src="<%= p.getPhotoUrl() %>"></a>
                 <a href=""><h4><%= p.getName() %></h4></a>
-                <div>優惠價:<%= p instanceof SpecialOffer?((SpecialOffer)p).getDiscountString():"" %> <%= p.getUnitPrice() %>元</div>	
+                <div id="productItem-price">優惠價:<%= p instanceof SpecialOffer?((SpecialOffer)p).getDiscountString():"" %> $<%= p.getUnitPrice() %>元</div>	
             </div>
             <% } %>	
         </div>
     <% } %>	
     </div>   
+    
     <%@include file="/subviews/footer.jsp" %>	
 </body>
 
