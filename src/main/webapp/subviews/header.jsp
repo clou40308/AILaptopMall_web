@@ -10,9 +10,9 @@
             <sub><%= request.getParameter("subheader")==null?"首頁":request.getParameter("subheader") %></sub>
         </div>
         <div id="search-bar">
-            <form action="" method="get">
+            <form action="<%= request.getContextPath() %>/products_list.jsp" method="GET">
                 <img id="search-bar-img" src="<%= request.getContextPath() %>/images/search_icon.png" alt="">
-                <input id="search-bar-keyword" type="search" name="keyword" required placeholder="搜尋商品">
+                <input id="search-bar-keyword" type="search" name="keyword" value="${param.keyword}" required placeholder="搜尋商品">
                 <input id="search-bar-submit" type="submit" value="查詢">
             </form>
         </div>
