@@ -40,6 +40,7 @@
             margin:5px;
             padding: 2px 1em;
             border: 1px black solid;
+            border-radius: 5px;
        }
 
        #productItem img{

@@ -40,7 +40,7 @@ public class UpdateCartServlet extends HttpServlet {
 				//1.取得request的form data
 				String quantity = request.getParameter("quantity" + item.hashCode());
 				String delete = request.getParameter("delete" + item.hashCode());
-				System.out.printf("qyantity: %s, delete: %s\n", quantity, delete);
+				//System.out.printf("qyantity: %s, delete: %s\n", quantity, delete);
 				//2. 呼叫商業邏輯
 				if(delete==null) {
 					//修改數量

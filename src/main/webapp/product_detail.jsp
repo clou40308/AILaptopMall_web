@@ -19,6 +19,7 @@
 		
 		function init(){
 			$("#productMainData-size span").on("click", changeSizeData);
+			$("select[name=spec]").on("change", changeSpecData);
 		}
 		
 		function changeSizeData(){
@@ -55,7 +56,26 @@
 			$("select[name=spec]").html(result);
 		}
 		
-		
+		function changeSpecData(){
+			//alert("alert");
+			var stock = $("select[name=spec] option:selected").attr("data-stock");
+			var listPrice = $("select[name=spec] option:selected").attr("data-list-price");
+			var price = $("select[name=spec] option:selected").attr("data-price");
+			var photoUrl = $("select[name=spec] option:selected").attr("data-photo-src");
+			var description1 = $("select[name=spec] option:selected").attr("data-description-1");
+			var description2 = $("select[name=spec] option:selected").attr("data-description-2");
+			var description3 = $("select[name=spec] option:selected").attr("data-description-3");
+			console.log(stock, listPrice, price,photoUrl ,description1,description2,description3);
+			
+			//TODO: 修改畫面中指定位置的資料
+			$("input[name=quantity]").attr("max",  stock);
+			$("#theListPrice").text(listPrice);
+			$("#thePrice").text(price);	
+			$("#product-data-photo").attr("src", photoUrl);
+			$("#description1").text(description1);	
+			$("#description2").text(description2);	
+			$("#description3").text(description3);	
+		}
 	</script>	
     <style>
        
@@ -90,12 +110,14 @@
 			display: flex;
 			justify-content: center;
 			align-items: center;
-			border: 1px black solid;
 	   }
 
 	   #product-data-area-down{
 			border: 1px black solid;
-			height: 45%;
+			height: 230px;
+			display: flex;
+			justify-content: center;
+			align-items: center;
 		}
 		
        #product-data-photo{
@@ -105,7 +127,6 @@
        }
 
 	   #productMainData{
-			border: 1px black solid;
 			width: 500px;
 			height: 400px;
 			margin-left: 30px;
@@ -125,7 +146,6 @@
 	   #productMainData-size,
 	   #productMainData-spec{
 			height:	35px;
-			border: 1px black solid;
 	   }
 	   
 	   #productMainData-ReleaseDate p,
@@ -197,6 +217,7 @@
 			width: 165px;
 		}
 		
+
     </style>
 </head>
 
@@ -244,14 +265,14 @@
 
 						<% if(p instanceof SpecialOffer) {%>
 							<div id="productMainData-ListPrice">
-								<p>定價:$<%= ((SpecialOffer)p).getListPrice() %>元</p>
+								<p>定價:$<span id="theListPrice"><%= ((SpecialOffer)p).getListPrice() %></span>元</p>
 							</div>
 						<% } %>
 
 						<div id="productMainData-UnitPrice">
 							<p>
 								優惠價: <%= p instanceof SpecialOffer ?((SpecialOffer)p).getDiscountString() :""%>
-								$<%= p.getUnitPrice() %> 元
+								$<span id="thePrice"><%= p.getUnitPrice() %></span> 元
 							</p>
 						</div>
 
@@ -259,7 +280,7 @@
 							<p>庫存: 共<%= p.getStock() %>台<span id="theSizeStock"></span></p>
 						</div>
 												
-						<form>
+						<form action="add_to_cart.do" method="POST">
 							<input type="hidden" name="productId" value="<%= p.getId() %>">
 							
 							<% if(p.getSizeList()!=null && p.getSizeList().size()>0){%>
@@ -301,12 +322,21 @@
 				<hr>
 
 				<div id="product-data-area-down">
-					<div class="productDesc">
-						<p><%= p.getDescription() %></p>
+					<div id="productDesc">
+						<div><span id="description1"></span><%= p.getDescription() %></div>
+						<div><span id="description2"></span></div>
+						<div><span id="description3"></span></div>
 					</div>	
 				</div>
 
 			</div>
+			
+			<script>
+				<% if(p.getSizeList().size()==0 && p.getSpecCount()>0){%>
+						//alert("應帶入規格資料");
+						ajaxGetSpecsOption("");
+				<%}%>
+			</script>
 		<%} %>
 	 </div>
 	 
