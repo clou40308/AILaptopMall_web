@@ -10,7 +10,7 @@
     <link rel="stylesheet" type="text/css" href="style/ailm.css">
     <link rel="stylesheet" type="text/css" href="style/header.css">
     <link rel="stylesheet" type="text/css" href="style/footer.css">
-    <meta http-equiv="refresh" content="5;url=./">
+    <meta http-equiv="refresh" content="5;url=${requestScope.previous_uri==null?"./":previous_uri}">
     <style>
         #container-login-success {
             height: 750px;
@@ -47,7 +47,7 @@
             <%				
 				Customer member = (Customer)session.getAttribute("member");
 			%>
-			<%= member!=null?member.getName()+"，" : "" %>您好! 登入成功，5秒後自動轉址至<a href="./">指定的網頁或首頁</a>
+			<%= member!=null?member.getName()+"，" : "" %>您好! 登入成功，5秒後自動轉址至<a href="${previous_uri==null?"./":previous_uri}">指定的網頁或首頁</a>
             </p>
         </div>
     </div>

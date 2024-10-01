@@ -62,6 +62,8 @@ public class LoginServlet extends HttpServlet {
 			}
 		}
 		session.removeAttribute("captchaString");
+		String prevURI = (String)session.getAttribute("previous_uri");		
+		session.removeAttribute("previous_uri");
 
 		// 2.檢查無誤，呼叫商業邏輯: CustomerService.login
 		if (errors.isEmpty()) {
@@ -71,6 +73,8 @@ public class LoginServlet extends HttpServlet {
 
 				// 3.1 內部轉交(forward)成功 login_success.jsp
 				session.setAttribute("member", c);
+				if(prevURI!=null)request.setAttribute("previous_uri", prevURI);
+				
 				// session.setMaxInactiveInterval(10); //sec., 小心這行不要亂加
 				RequestDispatcher dispatcher = request.getRequestDispatcher("login_success.jsp");
 				dispatcher.forward(request, response);
