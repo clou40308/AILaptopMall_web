@@ -47,7 +47,7 @@
             <%				
 				Customer member = (Customer)session.getAttribute("member");
 			%>
-			<%= member!=null?member.getName()+"，" : "" %>您好! 登入成功，5秒後自動轉址至<a href="./">首頁</a>
+			<%= member!=null?member.getName()+"，" : "" %>您好! 登入成功，5秒後自動轉址至<a href="./">指定的網頁或首頁</a>
             </p>
         </div>
     </div>
