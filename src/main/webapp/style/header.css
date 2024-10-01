@@ -102,7 +102,7 @@ a {
 
 #account-area span{
     padding-left: 10px;
-    width: 120px;
+    width: 200px;
     margin-top: 27px;
 }
 
@@ -112,5 +112,22 @@ a {
     background-color: #fff;
     border: none;
     margin-top: 27px;
+}
+
+#cart-icon-area{
+    border: 1px black solid;
+    width:70px;
+    height: 70px;
+    color: #fff;
+    display: flex;
+}
+
+#cart-icon-area img{
+	height: 35px;
+    width: 35px;
+}
+
+#cart-icon-area span{
+	font-size: 14px;
 }
 /* header css */
