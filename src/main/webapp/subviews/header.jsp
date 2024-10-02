@@ -35,12 +35,14 @@
             <% } %>
             <span><%= member!=null?member.getName()+"，你好!":"" %></span>
             <div id="cart-icon-area">
-	            <a href="<%= request.getContextPath() %>/member/cart.jsp">
-	                <img src="<%= request.getContextPath() %>/images/Shopping cart.png">
-	                <span>
+                <div id="cart-icon-area-position">
+                    <a href="<%= request.getContextPath() %>/member/cart.jsp">
+                        <img src="<%= request.getContextPath() %>/images/Shopping cart.png">
+                        <span>
                         ${cart==null || cart.isEmpty()?"":"(".concat(cart.getTotalQuantity()).concat(")")}
-                    </span>
-	            </a>
+                        </span>
+                    </a>
+                </div>
         	</div>
         </div>
 

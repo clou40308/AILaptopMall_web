@@ -113,7 +113,6 @@
 	   }
 
 	   #product-data-area-down{
-			border: 1px black solid;
 			height: 230px;
 			display: flex;
 			justify-content: center;
@@ -217,7 +216,14 @@
 			width: 165px;
 		}
 		
+		#productDesc span{
+			font-size: 18px;
+			font-weight: 600;
+		}
 
+		#productDesc div{
+			margin-top: 15px;
+		}
     </style>
 </head>
 
@@ -323,7 +329,8 @@
 
 				<div id="product-data-area-down">
 					<div id="productDesc">
-						<div><span id="description1"></span><%= p.getDescription() %></div>
+						<div><span><%= p.getDescription() %></span></div>
+						<div><span id="description1"></span></div>
 						<div><span id="description2"></span></div>
 						<div><span id="description3"></span></div>
 					</div>	
