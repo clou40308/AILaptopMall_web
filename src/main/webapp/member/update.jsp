@@ -94,8 +94,8 @@
         	var isChecked = $(this).prop("checked");
         	$("#theNewPassword").prop("required", $(this).prop("checked"));
       		$("#theNewPassword").prop("disabled", !$(this).prop("checked"));
-            $("#password").prop("disabled", $(this).prop("checked"));
-      		$("#password").prop("required", !$(this).prop("checked"));
+            //$("#password").prop("disabled", $(this).prop("checked"));
+      		//$("#password").prop("required", !$(this).prop("checked"));
       		if($("#theNewPassword").prop("disabled")) theNewPassword.value="";  
             if(isChecked){		
         		$("img[name=theNewEyes_on]").on("click", showNewPwd);

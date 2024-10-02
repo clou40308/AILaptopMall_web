@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.ailaptopmall.entity.Customer;
+import com.ailaptopmall.entity.VIP;
 import com.ailaptopmall.exception.AILMDataInvalidException;
 import com.ailaptopmall.exception.AILMException;
 import com.ailaptopmall.service.CustomerService;
@@ -20,7 +21,7 @@ import com.ailaptopmall.service.CustomerService;
 /**
  * Servlet implementation class UpdataMemberServlet
  */
-@WebServlet("/member/update.do") // http://localhost:8080/ailaptopmall/member/update.do
+@WebServlet("/member/update.do")
 public class UpdataMemberServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -40,7 +41,9 @@ public class UpdataMemberServlet extends HttpServlet {
 		request.setCharacterEncoding("utf-8");		
 		HttpSession session = request.getSession();
 		
-		//1.讀取request中的form data: account,password,id,email,phone,name,birthday,gender,captcha
+		Customer member = (Customer)session.getAttribute("member");		
+		
+		//1.讀取request中的form data: account,id,email,phone, password,name,birthday,gender,captcha
 										//address,subscribed
 		String account = request.getParameter("account");
 		String password = request.getParameter("password");
@@ -58,42 +61,55 @@ public class UpdataMemberServlet extends HttpServlet {
 		String subscribed = request.getParameter("subscribed");
 		
 		//並檢查之
-		if(account==null || account.length()==0) errors.add("必須輸入帳號");
-		if(changePwd !=null) {
-			if(theNewPassword==null || theNewPassword.length()==0) errors.add("必須輸入新密碼");
+		if(member == null) {
+				errors.add("會員資料不正確，請重新登入!");
+				response.sendRedirect("../");
+				return;
 		}else {
-			if(password==null || password.length()==0) errors.add("必須輸入密碼");
-		}
-		if(id==null || (id=id.trim()).length()==0) errors.add("必須輸入身分證字號");			
-		if(email==null || (email=email.trim()).length()==0) errors.add("必須輸入email");
-		if(phone==null || (phone=phone.trim()).length()==0) errors.add("必須輸入手機");
-		if(name==null || (name=name.trim()).length()==0) errors.add("必須輸入姓名");
-		if(birthday==null || birthday.length()==0) errors.add("必須輸入生日");
-		if(gender==null || gender.length()!=1) errors.add("必須選擇性別");
-		
-		if(captcha ==null || (captcha=captcha.trim()).length()==0) {
-				errors.add("必須輸入驗證碼");
-		}else {
-			String captchaString = (String)session.getAttribute("captchaString");
-			if(!captcha.equalsIgnoreCase(captchaString)) {
-				errors.add("驗證碼不正確");
+			if(!member.getAccount().equals(account)) errors.add("不得修改帳號!");
+			
+			if(!member.getPassword().equals(password)) errors.add("原密碼不正確!");
+			
+			if(changePwd!=null) {
+				if(theNewPassword==null || theNewPassword.length()==0) {
+					if(!member.getPassword().equals(password)) errors.add("新密碼不正確!");
+				}
+			}else {
+				theNewPassword = password;
+			}		
+			if(id==null || (id=id.trim()).length()==0) errors.add("必須輸入身分證字號");	
+			if(email==null || (email=email.trim()).length()==0) errors.add("必須輸入email");
+			if(phone==null || (phone=phone.trim()).length()==0) errors.add("必須輸入手機");
+			if(name==null || (name=name.trim()).length()==0) errors.add("必須輸入姓名");
+			if(birthday==null || birthday.length()==0) errors.add("必須輸入生日");
+			if(gender==null || gender.length()!=1) errors.add("必須選擇性別");
+			
+			if(captcha ==null || (captcha=captcha.trim()).length()==0) {
+					errors.add("必須輸入驗證碼.");
+			}else {
+				String captchaString = (String)session.getAttribute("captchaString");
+				if(!captcha.equalsIgnoreCase(captchaString)) {
+					errors.add("驗證碼不正確.");
+				}
 			}
 		}
 		session.removeAttribute("captchaString");
 		
 		//2.若無誤，呼叫商業邏輯
-		if(errors.isEmpty()){			
-			Customer c = new Customer();
+		if(errors.isEmpty()){	
+			
+			Customer c=null;
+			try {
+				c = member.getClass().newInstance();
+			} catch (InstantiationException|IllegalAccessException e) {
+				c = new Customer(); 
+			}
 			try{
-				c.setAccount(account);
-				if(changePwd !=null) {
-					c.setPassword(theNewPassword);
-				}else {
-					c.setPassword(password);
-				}
+				c.setAccount(member.getAccount());
 				c.setId(id);
 				c.setEmail(email);
 				c.setPhone(phone);
+				c.setPassword(changePwd!=null?theNewPassword:password);
 				c.setName(name);
 				c.setBirthday(birthday);
 				c.setGender(gender.charAt(0));
@@ -101,14 +117,15 @@ public class UpdataMemberServlet extends HttpServlet {
 				c.setAddress(address);
 				c.setSubscribed(subscribed!=null);
 				
+				if(c instanceof VIP) {
+					((VIP)c).setDiscount(((VIP)member).getDiscount());
+				}
+				
 				CustomerService service = new CustomerService();
 				service.update(c);
-				
-				//3.1 內部轉交(forward)成功 register_success.jsp
-				request.setAttribute("member", c);
-				RequestDispatcher dispatcher = 
-						request.getRequestDispatcher("update_success.jsp");
-				dispatcher.forward(request, response);
+				session.setAttribute("member", c);//取代session中的舊會員資料
+				//3.1 外部轉交首頁
+				response.sendRedirect("../member/update_success.jsp");
 				return;
 				
 			}catch(AILMDataInvalidException e) {
@@ -122,11 +139,11 @@ public class UpdataMemberServlet extends HttpServlet {
 			}
 		}
 		
-		//3.2 內部轉交(forward)失敗的update.jsp
+		//3.2 內部轉交(forward)失敗的register.jsp
 		request.setAttribute("errors", errors);
 		RequestDispatcher dispatcher = 
 				request.getRequestDispatcher("update.jsp");
-		dispatcher.forward(request, response);		
+		dispatcher.forward(request, response);
 	}
 
 }
