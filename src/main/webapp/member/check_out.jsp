@@ -158,6 +158,77 @@
 			padding-top: 30px;
        }
        
+	   #shippingTypeSpan{
+			font-size: 24px;
+	   }
+	   
+	   #paymentTypeSpan {
+	   		font-size: 24px;
+			margin-left: 150px;
+	   }
+		
+	   #shippingTypeSpan select,
+	   #paymentTypeSpan select{
+			width:180px;
+			height:25px;
+			font-size: 20px;
+	   }
+	   
+	   #order-submit{
+			margin-left: 50px;
+			height:28px;
+			width: 90px;
+			font-size: 18px;
+	   }
+
+	   fieldset label{
+			font-size: 20px;
+	   }
+
+	   fieldset div{
+			margin-top: 15px;
+	   }
+	   
+	   #fieldset-name,
+	   #fieldset-phone{
+			height: 25px;
+			width: 200px;
+			font-size: 20px;
+			margin-left: 20px;
+	   }
+	   
+	   #fieldset-email{
+	   		height: 25px;
+			width: 280px;
+			font-size: 20px;
+			margin-left: 10px;
+	   }
+	   
+	   #fieldset-shipping-address{
+	   		height: 25px;
+			width: 380px;
+			font-size: 20px;
+			margin-left: 20px;
+	   }
+
+	   #recipient{
+		font-size: 18px;
+	   }
+
+	   #recipient input{
+		font-size: 14px;
+	   }
+
+	   #convenience-store-button{
+			font-size: 18px;
+			margin-left: 50px;
+	   }
+	   
+	   summary{
+	   		font-size: 20px;
+			margin-top: 40px;
+	   }
+	   
     </style>
 </head>
 <body>
@@ -206,20 +277,20 @@
 								<% } %>
 							</select>
 						</span>
-						<input type="submit" value="送出訂單" >
+						<input id="order-submit" type="submit" value="送出訂單" >
 					</p>
 					
 					<fieldset>
-						<legend>收件人<input type="button" value="同訂購人" onclick="copyMemberData()"></legend>
-						<div><label>姓名:</label><input name="name" placeholder="請輸入真實姓名" required></div>
-						<div><label>手機:</label><input type="tel" name="phone" placeholder="請輸入正確手機號碼" required></div>
-						<div><label>Email:</label><input type="email" name="email" placeholder="請輸入正確Emial" required></div>
-						<div><label>地址:</label><input name="shippingAddress" required>
+						<legend id="recipient">收件人<input type="button" value="同訂購人" onclick="copyMemberData()"></legend>
+						<div><label>姓名:</label><input id="fieldset-name" name="name" placeholder="請輸入真實姓名" required></div>
+						<div><label>手機:</label><input id="fieldset-phone" type="tel" name="phone" placeholder="請輸入正確手機號碼" required></div>
+						<div><label>Email:</label><input id="fieldset-email" type="email" name="email" placeholder="請輸入正確Email" required></div>
+						<div><label>地址:</label><input id="fieldset-shipping-address" name="shippingAddress" required>
 							 <datalist id="shoplist">
 								<option>101旗艦店 台北市信義區信義路五段7號</option>
 								<option>復北門市 台北市復興北路99號1F</option>									
 							 </datalist>
-							 <input type="button" value="選擇超商" style="dispaly:none">								
+							 <input id="convenience-store-button" type="button" value="選擇超商" style="dispaly:none">								
 						</div>
 					</fieldset>
 				</form>
