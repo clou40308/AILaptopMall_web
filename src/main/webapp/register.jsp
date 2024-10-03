@@ -13,6 +13,16 @@
     <link rel="stylesheet" type="text/css" href="style/footer.css">
     <script src="https://code.jquery.com/jquery-3.0.0.js"
         integrity="sha256-jrPLZ+8vDxt2FnE1zvZXCkCcebI/C8Dt5xyaQBjxQIo=" crossorigin="anonymous"></script>
+        
+    <!-- favicon icon 網頁的icon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="./favicon_package/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="./favicon_package/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="./favicon_package/favicon-16x16.png">
+	<link rel="manifest" href="./favicon_package/site.webmanifest">
+	<link rel="mask-icon" href="./favicon_package/safari-pinned-tab.svg" color="#5bbad5">
+	<meta name="msapplication-TileColor" content="#da532c">
+	<meta name="theme-color" content="#ffffff">
+	
      <script>
    		//$(document).ready(init);
 		$(init);
