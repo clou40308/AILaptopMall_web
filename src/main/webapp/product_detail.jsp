@@ -234,6 +234,17 @@
 		#productDesc div{
 			margin-top: 15px;
 		}
+		
+		#theListPrice{
+			color:gray; 
+			text-decoration: line-through;
+		}
+
+		#thePrice{
+			color:blue;
+			font-size: larger
+		}
+		
     </style>
 </head>
 
