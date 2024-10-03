@@ -1,3 +1,5 @@
+<%@page import="com.ailaptopmall.entity.PaymentType"%>
+<%@page import="com.ailaptopmall.entity.ShippingType"%>
 <%@page import="com.ailaptopmall.entity.CartItem"%>
 <%@page import="java.util.Set"%>
 <%@page import="com.ailaptopmall.entity.ShoppingCart"%>
@@ -8,7 +10,7 @@
 <head>
 	<meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI筆電商城 購物車</title>
+    <title>AI筆電商城 結帳</title>
     <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/style/ailm.css">
     <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/style/header.css">
     <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/style/footer.css">
@@ -25,7 +27,63 @@
 	<meta name="theme-color" content="#ffffff">
 	
     <script>
-     
+	function copyMemberData(){
+		//alert("copyMemberData");
+		
+		$("input[name=name]").val("${sessionScope.member.getName()}");
+		$("input[name=email]").val("${sessionScope.member.getEmail()}");
+		$("input[name=phone]").val("${sessionScope.member.getPhone()}");
+		$("input[name=shippingAddress]").val("${sessionScope.member.getAddress()}");
+	}
+	
+	function changePaymentOption(){				
+		$("select[name=paymentType] option").prop("disabled", true);
+		$("select[name=paymentType] option[value='']").removeAttr("disabled");
+		
+		if($("select[name=shippingType] option:selected").val()!=''){
+			var array = $("select[name=shippingType] option:selected").attr("data-array").split(',');
+			for(i=0;i<array.length;i++){
+				$("select[name=paymentType] option[value='"+array[i]+"']").removeAttr("disabled");
+			}
+		}
+		
+		if($("select[name=paymentType] option:selected").prop("disabled")){
+			$("select[name=paymentType]").val("");
+		}
+		
+		changeShippingAddress($("select[name=shippingType]").val());
+		calculateFee();
+	}
+	
+	function changeShippingAddress(shippingType){
+		alert(shippingType);
+		//TODO:調整shippingAddress的輸入方式
+		switch(shippingType){
+		case 'SHOP':
+			alert('門市');break;
+		case 'HOME':
+			alert('宅配');break;
+		case 'STORE':
+			alert('超商');break;
+		case 'NO':
+			alert('無須貨運');
+		}
+	}
+	
+	function calculateFee(){
+		//alert("calculateFee");
+		var amount = Number($("#totalAmount").text());
+		var shippingFee=0;
+		var paymentFee=0;
+		if($("select[name=shippingType] option:selected").val()!=''){
+			shippingFee = Number($("select[name=shippingType] option:selected").attr("data-fee"));
+		}
+		if($("select[name=paymentType] option:selected").val()!=''){
+			paymentFee = Number($("select[name=paymentType] option:selected").attr("data-fee"));
+		}
+		//alert(amount+shippingFee+paymentFee);
+		$("#totalAmountWithFee").text(amount + shippingFee+paymentFee);				
+	}
     </script>
     <style>
     
@@ -37,9 +95,7 @@
 		#cartDetails {
 			font-family: Helvetica, Arial, sans-serif;
 			border-collapse: collapse;
-			width: 80%;
-			margin: auto;
-			padding-top: 100px;
+			width: 100%;
 		}
 			
 		#cartDetails td, #cartDetails th {
@@ -86,20 +142,27 @@
 			color:blue;
 		}
 		
-		#no-cart{
+		#no-check-out{
 	   		display: flex;
             justify-content: center;
 	   }
 	   
-	   #no-cart h2{
-            width: 300px;
+	   #no-check-out h2{
+            width: 500px;
 			color: #ea1717;
        }
+       
+       #container-width{
+       		width: 80%;
+			margin: auto;
+			padding-top: 30px;
+       }
+       
     </style>
 </head>
 <body>
 	<jsp:include page="/subviews/header.jsp" >
-		<jsp:param value="購物車" name="subheader"/>
+		<jsp:param value="結帳" name="subheader"/>
 	</jsp:include>
 	
 		<div id="container-cart">
@@ -111,59 +174,100 @@
 				if(cart==null || cart.isEmpty()){
 			%>
 			
-			<div id="no-cart">
-	            <h2>購物車是空的!</h2>
+			<div id="no-check-out">
+	            <h2>購物車是空的，無法結帳!請先至[賣場]選購!</h2>
 	        </div>	
 				
 			<%} else{%>
-			
-			<form action="update_cart.do" method="POST">
-				<table id="cartDetails">
-					<caption>購物明細</caption>					
-					<thead>
-						<tr>
-							<th>編號</th><th>產品名稱 螢幕尺寸 規格</th>
-							<th>價格</th>
-							<th>數量</th><th>小計</th><th>刪除</th>
-						</tr>
-					</thead>
-					<tbody>
-						<% 	Set<CartItem> itemSet = cart.getCartItemsSet();					
-							for(CartItem item:itemSet){						
-						%>
-						<tr>
-							<td><%= item.getProductId() %></td>
-							<td>
-								<a href="../product_detail.jsp?productId=<%=item.getProductId() %>">
-									<img style="width:40px;float:left;" src="<%= item.getPhotoUrl() %>">
-									<div class='productName'><%= item.getProductName() %></div>
-								</a>
-								<%= item.getSizeName() %> <%= item.getSpecName() %> 庫存<%= item.getStock() %>件
-							</td>
-							<td>
-								<div><span class='listPrice'><%= item.getListPrice() %></span>元</div> 
-								<div><%= item.getDiscountString() %></div> 
-								<span class='price'><%= item.getPrice() %></span>元
-							</td>						
-							<td><input type="number" name="quantity<%=item.hashCode() %>" max="<%= item.getStock() %>" value="<%= cart.getQuantity(item) %>" required>  </td>
-							<td><%= cart.getAmount(item) %></td>
-							<td><input type="checkbox" name="delete<%=item.hashCode() %>"></td>
-						</tr>
-						<% } %>
-					</tbody>
-					<tfoot>
-						<tr>
-							<td colspan="3">共<%= cart.size() %>項</td>
-							<td colspan="1"><%= cart.getTotalQuantity() %>台</td>
-							<td colspan="2">總金額: <%= cart.getTotalAmount() %>元</td>
-						</tr>
-						<tr>
-							<td colspan="4"><input type="submit" value="修改購物車"></td>
-							<td colspan="2"><input type="button" value="我要結帳" onclick="location.href='check_out.jsp';"></td>
-						</tr>
-					</tfoot>
-				</table>
-			</form>
+			<div id="container-width">
+					<form id="checkOutForm" action="check_out_success.jsp">
+					<p>
+						<span id="shippingTypeSpan">
+							<label>貨運方式:</label>
+							<select name="shippingType" required onchange="changePaymentOption()">
+								<option value=''>請選擇...</option>
+								<% for(int i=0;i<ShippingType.values().length;i++) {		
+									ShippingType shType = ShippingType.values()[i];
+								%>
+								<option value='<%= shType.name()%>' data-fee="<%= shType.getFee()%>"
+									data-array='<%= shType.getPaymentTypeArrayStr() %>'
+								>
+									<%= shType%>									
+								</option>
+								<% } %>
+							</select>
+						</span>
+						<span id="paymentTypeSpan">
+							<label>付款方式:</label>
+							<select name="paymentType" required onchange="calculateFee()">
+								<option value=''>請選擇...</option>
+								<% for(PaymentType pType:PaymentType.values()){ %>
+								<option value='<%= pType.name()%>' data-fee=<%=pType.getFee() %>><%=pType %></option>
+								<% } %>
+							</select>
+						</span>
+						<input type="submit" value="送出訂單" >
+					</p>
+					
+					<fieldset>
+						<legend>收件人<input type="button" value="同訂購人" onclick="copyMemberData()"></legend>
+						<div><label>姓名:</label><input name="name" placeholder="請輸入真實姓名" required></div>
+						<div><label>手機:</label><input type="tel" name="phone" placeholder="請輸入正確手機號碼" required></div>
+						<div><label>Email:</label><input type="email" name="email" placeholder="請輸入正確Emial" required></div>
+						<div><label>地址:</label><input name="shippingAddress" required>
+							 <datalist id="shoplist">
+								<option>101旗艦店 台北市信義區信義路五段7號</option>
+								<option>復北門市 台北市復興北路99號1F</option>									
+							 </datalist>
+							 <input type="button" value="選擇超商" style="dispaly:none">								
+						</div>
+					</fieldset>
+				</form>
+				<details>
+					<summary>共<%= cart.getTotalQuantity() %>件, 總金額(含物流費): <span id="totalAmountWithFee"><%= cart.getTotalAmount() %></span>元 (點選即可看到明細)</summary>
+					<table id="cartDetails">
+						<caption>購物明細</caption>					
+						<thead>
+							<tr>
+								<th>編號</th><th>產品名稱 螢幕尺寸 規格</th>
+								<th>價格</th>
+								<th>數量</th><th>小計</th>
+							</tr>
+						</thead>
+						<tbody>
+							<% 	Set<CartItem> itemSet = cart.getCartItemsSet();					
+								for(CartItem item:itemSet){						
+							%>
+							<tr>
+								<td><%= item.getProductId() %></td>
+								<td>
+									<a href="../product_detail.jsp?productId=<%=item.getProductId() %>">
+										<img style="width:40px;float:left;" src="<%= item.getPhotoUrl() %>">
+										<div class='productName'><%= item.getProductName() %></div>
+									</a>
+									<%= item.getSizeName() %> <%= item.getSpecName() %> 庫存<%= item.getStock() %>件
+								</td>
+								<td>
+									<div><span class='listPrice'><%= item.getListPrice() %></span>元</div> 
+									<div><%= item.getDiscountString() %></div> 
+									<span class='price'><%= item.getPrice() %></span>元
+								</td>						
+								<td><%= cart.getQuantity(item) %></td>
+								<td><%= cart.getAmount(item) %></td>							
+							</tr>
+							<% } %>
+						</tbody>
+						<tfoot>
+							<tr>
+								<td colspan="2">共<%= cart.size() %>項</td>
+								<td colspan="1"><%= cart.getTotalQuantity() %>件</td>
+								<td colspan="2">總金額: <span id="totalAmount"><%= cart.getTotalAmount() %></span>元</td>
+							</tr>						
+						</tfoot>
+					</table>
+				</details>
+				
+			</div>	
 			<%} %>
 		</div> 
 		 
