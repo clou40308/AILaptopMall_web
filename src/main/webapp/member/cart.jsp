@@ -25,7 +25,15 @@
 	<meta name="theme-color" content="#ffffff">
 	
     <script>
-     
+		$(document).ready(function init() {
+			$("#search-bar-keyword").focus(focusHandler).blur(blurHandler);
+		});
+	    function focusHandler() {
+	        $("#darken").show();
+	    }
+	    function blurHandler() {
+	        $("#darken").hide();
+	    }
     </script>
     <style>
     
@@ -95,6 +103,17 @@
             width: 300px;
 			color: #ea1717;
        }
+       
+       #darken {
+            height: 100vh;
+            width: 100vw;
+            background-color: rgba(0, 0, 0, 0.7);
+            position: fixed;
+            top: 0px;
+            left: 0px;
+            display: none;
+        }
+        
     </style>
 </head>
 <body>
@@ -166,7 +185,9 @@
 			</form>
 			<%} %>
 		</div> 
-		 
+	
+	<div id="darken"></div>	 
+	
 	<%@include file="/subviews/footer.jsp" %>	
 </body>
 </html>

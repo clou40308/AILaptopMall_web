@@ -10,6 +10,8 @@
     <link rel="stylesheet" type="text/css" href="style/ailm.css">
     <link rel="stylesheet" type="text/css" href="style/header.css">
     <link rel="stylesheet" type="text/css" href="style/footer.css">
+    <script src="https://code.jquery.com/jquery-3.0.0.js"
+    integrity="sha256-jrPLZ+8vDxt2FnE1zvZXCkCcebI/C8Dt5xyaQBjxQIo=" crossorigin="anonymous"></script>
     <meta http-equiv="refresh" content="5;url=${requestScope.previous_uri==null?"./":previous_uri}">
     
     <!-- favicon icon 網頁的icon -->
@@ -20,8 +22,19 @@
 	<link rel="mask-icon" href="./favicon_package/safari-pinned-tab.svg" color="#5bbad5">
 	<meta name="msapplication-TileColor" content="#da532c">
 	<meta name="theme-color" content="#ffffff">
-	
+	<script>
+		$(document).ready(function init() {
+			$("#search-bar-keyword").focus(focusHandler).blur(blurHandler);
+		});
+        function focusHandler() {
+            $("#darken").show();
+        }
+        function blurHandler() {
+            $("#darken").hide();
+        }
+	</script>
     <style>
+    
         #container-login-success {
             height: 750px;
             display: flex;
@@ -29,6 +42,7 @@
             align-items: center;
             background-image: url(./images/background-img.jpg);
         }
+        
         #login-success-area{
             display: flex;
             justify-content: center;
@@ -36,13 +50,26 @@
             width: 700px;
             height: 100px;
         }
+        
         #login-success-area p{
             font-size: 20px;
             font-weight: 700;
         }
+        
         #login-success-area a{
             color: #0090eb;
         }
+        
+        #darken {
+            height: 100vh;
+            width: 100vw;
+            background-color: rgba(0, 0, 0, 0.7);
+            position: fixed;
+            top: 0px;
+            left: 0px;
+            display: none;
+        }
+        
     </style>
 </head>
 
@@ -61,7 +88,9 @@
             </p>
         </div>
     </div>
-
+    
+	<div id="darken"></div>
+	
 	<%@include file="/subviews/footer.jsp" %>	
 </body>
 

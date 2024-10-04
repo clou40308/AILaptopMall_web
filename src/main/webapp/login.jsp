@@ -28,6 +28,7 @@
 
 		function init(){
 			//alert("init");
+			$("#search-bar-keyword").focus(focusHandler).blur(blurHandler);
 			<% if(request.getMethod().equals("POST")){ %>
 			repopulateFormData();
 		}
@@ -36,6 +37,14 @@
 			$("input[name=account]").val('<%= request.getParameter("account")%>');
 			$("input[name=password]").val('<%= request.getParameter("password")%>');
 			<% } %>
+		}
+		
+		function focusHandler() {
+		     $("#darken").show();
+		}
+		
+		function blurHandler() {
+		     $("#darken").hide();
 		}
 		
         function refreshCaptcha() {
@@ -263,6 +272,15 @@
             color: #dc0001;
         }
         
+        #darken {
+            height: 100vh;
+            width: 100vw;
+            background-color: rgba(0, 0, 0, 0.7);
+            position: fixed;
+            top: 0px;
+            left: 0px;
+            display: none;
+        }
     </style>
 </head>
 
@@ -317,6 +335,8 @@
         </div>
     </div>
     
+   	<div id="darken"></div>
+   	
 	<%@include file="/subviews/footer.jsp" %>	
 </body>
 

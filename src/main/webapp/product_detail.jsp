@@ -30,6 +30,7 @@
 		function init(){
 			$("#productMainData-size span").on("click", changeSizeData);
 			$("select[name=spec]").on("change", changeSpecData);
+			$("#search-bar-keyword").focus(focusHandler).blur(blurHandler);
 		}
 		
 		function changeSizeData(){
@@ -86,6 +87,15 @@
 			$("#description2").text(description2);	
 			$("#description3").text(description3);	
 		}
+		
+        function focusHandler() {
+            $("#darken").show();
+        }
+        
+        function blurHandler() {
+            $("#darken").hide();
+        }
+        
 	</script>	
     <style>
        
@@ -245,6 +255,16 @@
 			font-size: larger
 		}
 		
+		#darken {
+            height: 100vh;
+            width: 100vw;
+            background-color: rgba(0, 0, 0, 0.7);
+            position: fixed;
+            top: 0px;
+            left: 0px;
+            display: none;
+        }
+        
     </style>
 </head>
 
@@ -368,6 +388,8 @@
 		<%} %>
 	 </div>
 	 
+	<div id="darken"></div>
+	
     <%@include file="/subviews/footer.jsp" %>	
 </body>
 

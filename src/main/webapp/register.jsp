@@ -29,6 +29,7 @@
 
 		function init(){
 			//alert("init");
+			$("#search-bar-keyword").focus(focusHandler).blur(blurHandler);
 			<% if(request.getMethod().equals("POST")){ %>
 			repopulateFormData();
 		}
@@ -65,6 +66,14 @@
             $("#eyes_on").css("display", "none");
             $("#eyes_off").css("display", "inline");
             $("#password").attr("type", "text");
+        }
+        
+        function focusHandler() {
+            $("#darken").show();
+        }
+        
+        function blurHandler() {
+            $("#darken").hide();
         }
         
     </script>
@@ -350,6 +359,15 @@
             color: #dc0001;
         }
         
+        #darken {
+            height: 100vh;
+            width: 100vw;
+            background-color: rgba(0, 0, 0, 0.7);
+            position: fixed;
+            top: 0px;
+            left: 0px;
+            display: none;
+        }
     </style>
 </head>
 
@@ -438,6 +456,8 @@
         </div>
     </div>
     
+   	<div id="darken"></div>
+   	
 	<%@include file="/subviews/footer.jsp" %>	
 </body>
 

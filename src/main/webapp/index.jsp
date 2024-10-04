@@ -20,12 +20,19 @@
 	<link rel="mask-icon" href="./favicon_package/safari-pinned-tab.svg" color="#5bbad5">
 	<meta name="msapplication-TileColor" content="#da532c">
 	<meta name="theme-color" content="#ffffff">
-		<script type="text/javascript">
+	<script type="text/javascript">
 		var myInterval, index = 0;
 		$(document).ready(function init() {
 			$(".dot,#next,#prev").click(moveHandler);//run the same function
 			myInterval = setTimeout(moveHandler, 3000);//initial timer
+			$("#search-bar-keyword").focus(focusHandler).blur(blurHandler);
 		});
+        function focusHandler() {
+            $("#darken").show();
+        }
+        function blurHandler() {
+            $("#darken").hide();
+        }
 		function moveHandler(e) {
 			clearInterval(myInterval);//reset timer
 			myInterval = setTimeout(moveHandler, 3000);//set timeer
@@ -84,7 +91,7 @@
 			color: white;
 			cursor: pointer;
 			font-size: 3em;
-			top: 150px;
+			top: 300px;
 			opacity: 0.5;
 		}
 
@@ -120,6 +127,16 @@
 			background-color: white;
 		}
 		
+		#darken {
+            height: 100vh;
+            width: 100vw;
+            background-color: rgba(0, 0, 0, 0.7);
+            position: fixed;
+            top: 0px;
+            left: 0px;
+            display: none;
+        }
+        
     </style>
 </head>
 
@@ -154,6 +171,8 @@
 		</div>
 
 	</div>
+	
+	<div id="darken"></div>
 	
 	<%@include file="/subviews/footer.jsp" %>	
 </body>

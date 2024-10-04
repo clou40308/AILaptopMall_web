@@ -27,6 +27,15 @@
 	<meta name="theme-color" content="#ffffff">
 	
     <script>
+	$(document).ready(function init() {
+		$("#search-bar-keyword").focus(focusHandler).blur(blurHandler);
+	});
+    function focusHandler() {
+        $("#darken").show();
+    }
+    function blurHandler() {
+        $("#darken").hide();
+    }
 	function copyMemberData(){
 		//alert("copyMemberData");
 		
@@ -229,6 +238,15 @@
 			margin-top: 40px;
 	   }
 	   
+	   #darken {
+            height: 100vh;
+            width: 100vw;
+            background-color: rgba(0, 0, 0, 0.7);
+            position: fixed;
+            top: 0px;
+            left: 0px;
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -341,7 +359,9 @@
 			</div>	
 			<%} %>
 		</div> 
-		 
+	
+	<div id="darken"></div>	 
+	
 	<%@include file="/subviews/footer.jsp" %>	
 </body>
 </html>
