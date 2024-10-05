@@ -63,7 +63,7 @@
         
 		#container-index{
 			background-image: url(./images/background-img.jpg);
-			height: 800px;
+			height: 1300px;
 		}
 
         #outer {
@@ -137,6 +137,30 @@
             display: none;
         }
         
+		#container-interest{
+			border: 1px  black solid;
+			height: 500px;
+			margin-top: 50px;
+			padding: 0px 70px 0px 70px;
+		}
+
+		#container-interest p{
+			width: 300px;
+			font-size: 24px;
+			font-weight: 600;
+			color: #12ae57;
+			margin-bottom: 0px;
+		}
+
+		hr{
+			height:5px;
+			background-color: #12ae57;
+		}
+
+		#interest-area{
+			border: 1px  black solid;
+			height: 400px;
+		}
     </style>
 </head>
 
@@ -170,8 +194,16 @@
 			</div>
 		</div>
 
+		<div id="container-interest">
+			<p>你可能感興趣</p>
+			<hr>
+			<div id="interest-area">
+
+			</div>
+		</div>
+			
 	</div>
-	
+
 	<div id="darken"></div>
 	
 	<%@include file="/subviews/footer.jsp" %>	

@@ -188,7 +188,32 @@
 			height:28px;
 			width: 90px;
 			font-size: 18px;
+			border: 0px;
+			border-radius: 5px;
+			background-color: #ea1717;
+			color: #fff;
 	   }
+	   	#same-as-the-orderer{
+			border: 0px;
+			border-radius: 5px;
+			background-color: #ea1717;
+			color: #fff;
+			height:28px;
+			width: 70px;
+		}
+
+	   	#same-as-the-orderer:hover,
+	    #order-submit:hover,
+		#convenience-store-button:hover {
+            cursor: pointer;
+            transform: scale(1.05);
+        }
+
+		#same-as-the-orderer:active,
+		#order-submit:active,
+        #convenience-store-button:active {
+            transform: scale(0.95);  
+        }
 
 	   fieldset label{
 			font-size: 20px;
@@ -231,6 +256,10 @@
 	   #convenience-store-button{
 			font-size: 18px;
 			margin-left: 50px;
+			border: 0px;
+			border-radius: 5px;
+			background-color: #ea1717;
+			color: #fff;
 	   }
 	   
 	   summary{
@@ -299,7 +328,7 @@
 					</p>
 					
 					<fieldset>
-						<legend id="recipient">收件人<input type="button" value="同訂購人" onclick="copyMemberData()"></legend>
+						<legend id="recipient">收件人<input id="same-as-the-orderer" type="button" value="同訂購人" onclick="copyMemberData()"></legend>
 						<div><label>姓名:</label><input id="fieldset-name" name="name" placeholder="請輸入真實姓名" required></div>
 						<div><label>手機:</label><input id="fieldset-phone" type="tel" name="phone" placeholder="請輸入正確手機號碼" required></div>
 						<div><label>Email:</label><input id="fieldset-email" type="email" name="email" placeholder="請輸入正確Email" required></div>

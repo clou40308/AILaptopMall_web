@@ -228,7 +228,7 @@
 		
 				/* CHECKED STYLES */
 		#productMainData-size input[type=radio]:checked +span {
-		  	outline: 2px solid #ea1717;
+		  	outline: 3px solid #ea1717;
 		}
 		
 		#productMainData-spec select{

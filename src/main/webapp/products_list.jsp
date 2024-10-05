@@ -55,7 +55,7 @@
        #productItem{
             display:inline-block;
             width:235px;
-            height: 330px;
+            height: 340px;
             background-color: #fff;
             vertical-align:top;
             box-shadow: 5px 5px 5px #888888;
@@ -66,8 +66,8 @@
        }
 
        #productItem img{
-            width: 180px;
-            height: 180px;
+            width: 220px;
+            height: 200px;
             display:block;
             margin: auto;
        }

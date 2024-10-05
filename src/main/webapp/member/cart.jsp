@@ -114,6 +114,34 @@
             display: none;
         }
         
+		#modify-shopping-cart{
+			background-color: #ea1717;
+			color: #fff;
+			width: 85px;
+			height: 30px;
+			border: 0px;
+			border-radius: 5px;
+		}
+
+		#check-out-btn{
+			background-color: #ea1717;
+			color: #fff;
+			width: 80px;
+			height: 30px;
+			border: 0px;
+			border-radius: 5px;
+		}
+
+		#modify-shopping-cart:hover,
+		#check-out-btn:hover {
+            cursor: pointer;
+            transform: scale(1.05);
+        }
+
+		#modify-shopping-cart:active,
+        #check-out-btn:active {
+            transform: scale(0.95);  
+        }
     </style>
 </head>
 <body>
@@ -165,7 +193,7 @@
 								<span class='price'><%= item.getPrice() %></span>元
 							</td>						
 							<td><input type="number" name="quantity<%=item.hashCode() %>" max="<%= item.getStock() %>" value="<%= cart.getQuantity(item) %>" required>  </td>
-							<td><%= cart.getAmount(item) %></td>
+							<td><%= cart.getAmount(item) %>元</td>
 							<td><input type="checkbox" name="delete<%=item.hashCode() %>"></td>
 						</tr>
 						<% } %>
@@ -177,8 +205,8 @@
 							<td colspan="2">總金額: <%= cart.getTotalAmount() %>元</td>
 						</tr>
 						<tr>
-							<td colspan="4"><input type="submit" value="修改購物車"></td>
-							<td colspan="2"><button value="checkOut" name="submit">我要結帳</button></td>
+							<td colspan="4"><input id="modify-shopping-cart" type="submit" value="修改購物車"></td>
+							<td colspan="2"><button id="check-out-btn" value="checkOut" name="submit">我要結帳</button></td>
 						</tr>
 					</tfoot>
 				</table>
