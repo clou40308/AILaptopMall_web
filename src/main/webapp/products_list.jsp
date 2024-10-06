@@ -38,7 +38,7 @@
     <style>
     
        #container-product-list{
-            height: 1000px;
+            height: 1500px;
             background-image: url(./images/background-img.jpg);
        }
        

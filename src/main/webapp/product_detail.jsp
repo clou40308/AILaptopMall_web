@@ -233,7 +233,7 @@
 		
 		#productMainData-spec select{
 			height: 30px;
-			width: 165px;
+			width: 260px;
 		}
 		
 		#productDesc span{
