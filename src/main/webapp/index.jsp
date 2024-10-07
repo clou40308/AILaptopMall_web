@@ -1,3 +1,7 @@
+<%@page import="com.ailaptopmall.entity.SpecialOffer"%>
+<%@page import="com.ailaptopmall.entity.Product"%>
+<%@page import="java.util.List"%>
+<%@page import="com.ailaptopmall.service.ProductService"%>
 <%@page pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -138,7 +142,6 @@
         }
         
 		#container-interest{
-			border: 1px  black solid;
 			height: 500px;
 			margin-top: 50px;
 			padding: 0px 70px 0px 70px;
@@ -158,9 +161,53 @@
 		}
 
 		#interest-area{
-			border: 1px  black solid;
 			height: 400px;
 		}
+		
+		#product-list{
+            margin:15px 80px;
+       	}
+       	
+		#productItem{
+            display:inline-block;
+            width:235px;
+            height: 340px;
+            background-color: #fff;
+            vertical-align:top;
+            box-shadow: 5px 5px 5px #888888;
+            margin:5px 10px 5px 10px;
+            padding: 2px 1em;
+            border: 1px black solid;
+            border-radius: 5px;
+       }
+
+       #productItem img{
+            width: 220px;
+            height: 200px;
+            display:block;
+            margin: auto;
+       }
+
+       #productItem h4{
+            color: #4797d3;
+       }
+
+		#productItem-price{
+		    text-align: center;
+            color: #ea1717;
+            font-size: 18px;
+            font-weight: 650;
+		}
+		
+		#no-product{
+            display: flex;
+            justify-content: center;
+        }
+
+        #no-product h2{
+            width: 300px;
+			color: #ea1717;
+        }
     </style>
 </head>
 
@@ -198,7 +245,29 @@
 			<p>你可能感興趣</p>
 			<hr>
 			<div id="interest-area">
-
+					<%
+						ProductService pService = new ProductService();
+						List<Product> list = pService.getRandomProducts();
+						
+						//若查無資料
+						if(list==null || list.size()==0){				
+					%>
+					    <div id="no-product">
+				            <h2>查無感興趣產品資料!</h2>
+				        </div>	
+					<%} else { %>
+				        <div id="product-list">
+				        	<% for(int i=0;i<list.size();i++){
+									Product p = list.get(i);
+							%>
+							<div id="productItem">
+				                <a href="product_detail.jsp?productId=<%= p.getId() %>"><img src="<%= p.getPhotoUrl() %>"></a>
+				                <a href="product_detail.jsp?productId=<%= p.getId() %>"><h4><%= p.getName() %></h4></a>
+				                <div id="productItem-price">優惠價:<%= p instanceof SpecialOffer?((SpecialOffer)p).getDiscountString():"" %> $<%= p.getUnitPrice() %>元</div>	
+				            </div>
+				            <% } %>	
+				        </div>
+				    <% } %>	
 			</div>
 		</div>
 			
