@@ -59,7 +59,7 @@
             background-color: #fff;
             vertical-align:top;
             box-shadow: 5px 5px 5px #888888;
-            margin:5px;
+            margin:10px 5px 10px 5px;
             padding: 2px 1em;
             border: 1px black solid;
             border-radius: 5px;
