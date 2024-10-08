@@ -95,14 +95,14 @@ public class CheckOutServlet extends HttpServlet {
 				order.setRecipientPhone(phone);
 				order.setShippingAddress(shippingAddress);
 				order.add(cart);
-
-				// System.out.println("結帳前: "+order.getId());
+				System.out.println(cart.getMember());
+				//System.out.println("結帳前: "+order.getId());
 
 				OrderService oService = new OrderService();
 				try {
 					oService.checkOut(order);
-
-					// 3.1 轉交給成功check_out_ok.jsp
+					
+					// 3.1 轉交給成功check_out_success.jsp
 					request.setAttribute("order", order);
 					request.getRequestDispatcher("check_out_success.jsp").forward(request, response);
 					return;
