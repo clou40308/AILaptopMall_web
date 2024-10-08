@@ -27,15 +27,6 @@
 	<meta name="theme-color" content="#ffffff">
 	
     <script>
-	$(document).ready(function init() {
-		$("#search-bar-keyword").focus(focusHandler).blur(blurHandler);
-	});
-    function focusHandler() {
-        $("#darken").show();
-    }
-    function blurHandler() {
-        $("#darken").hide();
-    }
 	function copyMemberData(){
 		//alert("copyMemberData");
 		
@@ -298,7 +289,7 @@
 				
 			<%} else{%>
 			<div id="container-width">
-					<form id="checkOutForm" action="check_out_success.jsp">
+					<form id="checkOutForm" action="check_out.do" method="POST">
 					<p>
 						<span id="shippingTypeSpan">
 							<label>貨運方式:</label>
