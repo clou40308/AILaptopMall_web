@@ -289,6 +289,7 @@
 				
 			<%} else{%>
 			<div id="container-width">
+					<div>${errors}</div>
 					<form id="checkOutForm" action="check_out.do" method="POST">
 					<p>
 						<span id="shippingTypeSpan">
