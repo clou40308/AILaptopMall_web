@@ -35,7 +35,7 @@
 	</script>
     <style>
         #container-register-success {
-            height: 750px;
+            height: 900px;
             display: flex;
             justify-content: center;
             align-items: center;

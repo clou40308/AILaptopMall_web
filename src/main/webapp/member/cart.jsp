@@ -194,7 +194,7 @@
 								<div><%= item.getDiscountString() %></div> 
 								<span class='price'><%= item.getPrice() %></span>元
 							</td>						
-							<td><input type="number" name="quantity<%=item.hashCode() %>" max="<%= item.getStock() %>" value="<%= cart.getQuantity(item) %>" required>  </td>
+							<td><input type="number" name="quantity<%=item.hashCode() %>" min="1" max="<%= item.getStock() %>" value="<%= cart.getQuantity(item) %>" required>  </td>
 							<td><%= cart.getAmount(item) %>元</td>
 							<td><input type="checkbox" name="delete<%=item.hashCode() %>"></td>
 						</tr>

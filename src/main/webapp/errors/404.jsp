@@ -33,7 +33,7 @@
 	</script>
     <style>
         #container-404 {
-            height: 720px;
+            height: 900px;
             display: flex;
             justify-content: center;
             align-items: center;
