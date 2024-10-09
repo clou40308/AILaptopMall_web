@@ -163,6 +163,8 @@
 	        </div>	
 				
 			<%} else{%>
+			<% //cart.setMember((Customer)session.getAttribute("member")); %>
+			${sessionScope.cart.setMember(sessionScope.member)}
 			
 			<form action="update_cart.do" method="POST">
 				<table id="cartDetails">

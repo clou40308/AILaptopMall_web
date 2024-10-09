@@ -95,7 +95,6 @@ public class CheckOutServlet extends HttpServlet {
 				order.setRecipientPhone(phone);
 				order.setShippingAddress(shippingAddress);
 				order.add(cart);
-				System.out.println(cart.getMember());
 				//System.out.println("結帳前: "+order.getId());
 
 				OrderService oService = new OrderService();
