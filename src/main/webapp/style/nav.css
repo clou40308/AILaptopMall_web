@@ -1,0 +1,80 @@
+@charset "UTF-8";
+
+/* nav css */
+nav {
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.navigation {
+    margin: 0 auto;
+    width: 1005px;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1.2em;
+    display: flex;
+    cursor: pointer;
+    text-align: center;
+    flex-direction: row;
+    /*row column*/
+}
+
+.menu {
+    width: 100px;
+}
+
+.menuList {
+    border: 1px solid gray;
+    border-radius: 20px;
+    margin-left: 8px;
+    height: 35px;
+    background: #f8f9fa;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+/* 滑鼠滑入顯示子選單 */
+.menu:hover .menuItem {
+    display: block;
+}
+
+.menuList:hover {
+    background: black;
+    color: #fff;
+}
+
+.menuList:active {
+    background: #888;
+}
+
+.menuItem {
+    display: none;
+    border: 1px solid gray;
+    border-top: none;
+    background: #f8f9fa;
+    border-radius: 20px;
+    height: 35px;
+    margin-left: 8px;
+}
+
+.menu:hover .menuItem {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* 使用 flex 布局，以保持居中效果 */
+}
+
+.menuItem:hover {
+    background: #0080ff;
+    color: #fff;
+}
+
+.menuItem:active {
+    background: rgb(111, 161, 218);
+}
+
+/* nav css */

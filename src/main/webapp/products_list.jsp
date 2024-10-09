@@ -13,6 +13,7 @@
     <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/style/ailm.css">
     <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/style/header.css">
     <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/style/footer.css">
+    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/style/nav.css">
     <script src="https://code.jquery.com/jquery-3.0.0.js"
     integrity="sha256-jrPLZ+8vDxt2FnE1zvZXCkCcebI/C8Dt5xyaQBjxQIo=" crossorigin="anonymous"></script>
     
@@ -40,12 +41,6 @@
        #container-product-list{
             height: 1500px;
             background-image: url(./images/background-img.jpg);
-       }
-       
-       nav{
-       		height: 50px;
-            border: 2px black solid;
-            text-align: center;
        }
        
        #product-list{
@@ -115,13 +110,8 @@
 	
 	<div id="container-product-list">
 	
-        <nav>
-            <a href="<%= request.getContextPath() %>/products_list.jsp?latest=">新品</a>
-            <a href="<%= request.getContextPath() %>/products_list.jsp?maker=LENOVO">LENOVO</a>
-            <a href="<%= request.getContextPath() %>/products_list.jsp?maker=HP">HP</a>
-            <a href="<%= request.getContextPath() %>/products_list.jsp?">全部</a>
-        </nav>
-        
+		<%@include file="./subviews/nav.jsp" %>
+		
 	<% 
 			//1.取得request的Form Data/QueryString
 			String keyword = request.getParameter("keyword");
