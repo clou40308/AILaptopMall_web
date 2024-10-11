@@ -12,6 +12,7 @@
     <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/style/ailm.css">
     <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/style/header.css">
     <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/style/footer.css">
+    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/style/nav.css">
     <script src="https://code.jquery.com/jquery-3.0.0.js"
         integrity="sha256-jrPLZ+8vDxt2FnE1zvZXCkCcebI/C8Dt5xyaQBjxQIo=" crossorigin="anonymous"></script>
         
@@ -68,7 +69,7 @@
 			  padding-bottom: 12px;		  
 			  background-color: #ea1717;
 			  color: white;
-			  margin-top: 80px;	  
+			  margin-top: 25px;	  
 		}
 			
 		#cartDetails tbody input[type=number]{
@@ -150,7 +151,7 @@
 	</jsp:include>
 	
 		<div id="container-cart">
-		
+			<%@include file="../subviews/nav.jsp" %>
 <%-- 			<p>購物車內容: ${sessionScope.cart}</p> --%>
 			<%
 			

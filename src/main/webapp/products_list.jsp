@@ -39,12 +39,11 @@
     <style>
     
        #container-product-list{
-            height: 1500px;
             background-image: url(./images/background-img.jpg);
        }
        
        #product-list{
-            margin:15px 60px;
+            margin:0px 60px;
        }
 
        #productItem{

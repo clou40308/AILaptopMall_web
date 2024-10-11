@@ -35,7 +35,11 @@ public class CheckOutServlet extends HttpServlet {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		response.sendRedirect("check_out.jsp");
+		//OR寫成:
+		//response.sendError(404);
+	}
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
@@ -55,11 +59,11 @@ public class CheckOutServlet extends HttpServlet {
 			String email = request.getParameter("email");
 			String phone = request.getParameter("phone");
 			String shippingAddress = request.getParameter("shippingAddress");
-			// TODO: 檢查
-			if (shippingType == null || shippingType.length() == 0)
+			// 檢查必要欄位
+			if (shippingType == null || (shippingType=shippingType.trim()).length() == 0)
 				errors.add("必須選擇貨運方式");
 
-			if (paymemntType == null || paymemntType.length() == 0)
+			if (paymemntType == null || (paymemntType=paymemntType.trim()).length() == 0)
 				errors.add("必須選擇付款方式");
 
 			if (name == null || (name = name.trim()).length() == 0)
@@ -76,32 +80,34 @@ public class CheckOutServlet extends HttpServlet {
 
 			// 建立訂單()
 			if (errors.isEmpty()) {
-				ShippingType shType = ShippingType.valueOf(shippingType);
-				PaymentType pType = PaymentType.valueOf(paymemntType);
-
-				Order order = new Order();
-				order.setMember(cart.getMember());
-				order.setCreatedDate(LocalDate.now());
-				order.setCreatedTime(LocalTime.now());
-
-				order.setShippingType(shType);
-				order.setShippingFee(shType.getFee());
-
-				order.setPaymentType(pType);
-				order.setPaymentFee(pType.getFee());
-
-				order.setRecipientName(name);
-				order.setRecipientEmail(email);
-				order.setRecipientPhone(phone);
-				order.setShippingAddress(shippingAddress);
-				order.add(cart);
-				//System.out.println("結帳前: "+order.getId());
-
-				OrderService oService = new OrderService();
 				try {
+					ShippingType shType = ShippingType.valueOf(shippingType);
+					PaymentType pType = PaymentType.valueOf(paymemntType);
+	
+					Order order = new Order();
+					order.setMember(cart.getMember());
+					order.setCreatedDate(LocalDate.now());
+					order.setCreatedTime(LocalTime.now());
+	
+					order.setShippingType(shType);
+					order.setShippingFee(shType.getFee());
+	
+					order.setPaymentType(pType);
+					order.setPaymentFee(pType.getFee());
+	
+					order.setRecipientName(name);
+					order.setRecipientEmail(email);
+					order.setRecipientPhone(phone);
+					order.setShippingAddress(shippingAddress);
+					order.add(cart);
+					//System.out.println("結帳前: "+order.getId());
+	
+					OrderService oService = new OrderService();
+				
 					oService.checkOut(order);
 					
 					// 3.1 轉交給成功check_out_success.jsp
+					session.removeAttribute("cart"); //結帳成功務必清除session中的購物車
 					request.setAttribute("order", order);
 					request.getRequestDispatcher("check_out_success.jsp").forward(request, response);
 					return;

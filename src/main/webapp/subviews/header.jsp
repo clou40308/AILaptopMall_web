@@ -28,6 +28,8 @@
             <a href="<%= request.getContextPath() %>/register.jsp">註冊</a>
             <hr id="account-area-hr">
             <% }else{ //已經登入%>
+            <a href="<%= request.getContextPath() %>/member/orders_history.jsp">歷史訂單</a>
+            <hr id="account-area-hr">
             <a href="<%= request.getContextPath() %>/member/update.jsp">修改會員</a>
             <hr id="account-area-hr">
             <a href="<%= request.getContextPath() %>/logout.do">登出</a>
