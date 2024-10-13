@@ -91,14 +91,14 @@
 		<%@include file="../subviews/nav.jsp" %>
 		
 		<article >
-			<form>
+			<form style="padding-bottom: 1em">
 				查詢範圍: 
 					<input type="radio" value="1" name="range" required checked><label>1個月</label>
 					<input type="radio" value="2" name="range" required><label>2個月</label>
 					<input type="radio" value="6" name="range" required><label>半年</label>
 					<input type="radio" value="24" name="range" required><label>2年</label> 內
 					<input type='submit' value="查詢訂單">
-			</form>	
+			</form>
 			
 			<%
 				String range = request.getParameter("range");
@@ -118,12 +118,13 @@
 			
 			<ul type=none>
 				<h3>歷史訂單</h3>
-				<% for(Order order :list){%>
+				<% for(Order order:list) {%>
 				<li>
-					<div><%=order.getId() %></div><div><%=order.getCreatedDate() %>,<%=order.getCreatedTime() %></div>
-					<div><%=order.getStatus() %></div><div><%=order.getShippingType().getDescription() %> <%=order.getPaymentType().getDescription() %></div>
-					<div><%=order.getTotalAmount() %></div><div> 總金額(含手續費)<%=order.getTotalAmountWithFee()%>元</div>
+					<div><%=order.getId() %></div><div><%= order.getCreatedDate() %>, <%= order.getCreatedTime() %></div>
+					<div><%= order.getStatus() %></div><div><%= order.getShippingType().getDescription() %> <%= order.getPaymentType().getDescription() %></div>
+					<div><%= order.getTotalAmount() %>元</div><div> 總金額(含手續費)<%= order.getTotalAmountWithFee() %>元</div>
 					<a href="order.jsp?orderId=<%=order.getId() %>">檢視明細</a>
+					<hr>
 				</li>
 				<% } %>
 			</ul>
