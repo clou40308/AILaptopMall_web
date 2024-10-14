@@ -108,7 +108,7 @@
             <div id="area-text-check-out-success">
                 <h2>已經收到訂單，感謝您的訂購。</h2>
                 <h2>將盡快為您安排出貨!</h2>
-                <a href="<%=request.getContextPath() %>/index.jsp">
+                <a href="<%=request.getContextPath() %>/member/orders_history.jsp">
                     <button id="btn">歷史訂單</button>
                 </a>
                 <a href="<%=request.getContextPath() %>/index.jsp">
