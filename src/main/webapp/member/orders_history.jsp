@@ -40,7 +40,7 @@
 	<style>
 		#container-orders-history{
             background-image: url(../images/background-img.jpg);
-            height:800px;
+            height:1000px;
         }
         
        	#darken {
@@ -52,13 +52,14 @@
             left: 0px;
             display: none;
         }
-        
-        form{
-        	text-align:center;
-        }
-        					
+           					
 		ul{
-			width:90%;margin: auto; box-shadow: gray 2px 2px 5px;padding: 1ex;
+			width:90%;
+			margin: auto; 
+			box-shadow: gray 2px 2px 5px;
+			padding: 1ex;
+			background-color: #fff;
+			font-size: 18px;
 		}
 		
 		ul h3{
@@ -79,6 +80,51 @@
 			display: inline-block;
 			width:2em;
 		}
+		
+		li{
+			padding:0px 80px;
+		}
+
+		#no-orders-history{
+            display: flex;
+            justify-content: center;
+        }
+
+        #no-orders-history h2{
+            width: 500px;
+			color: #ea1717;
+        }
+        
+		#form-orders-history{
+			padding-bottom: 1em;
+			margin-top: 20px;
+			font-size: 24px;
+			height: 25px;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+
+		#order-submit{
+			margin-left: 20px;
+			background-color: #ea1717;
+			color: #fff;
+			width: 85px;
+			height: 30px;
+			border: 0px;
+			border-radius: 5px;
+		}
+		
+		#order-submit:hover {
+            cursor: pointer;
+            transform: scale(1.05);
+        }
+
+		#order-submit:active {
+            transform: scale(0.95);  
+        }
+
+
 	</style>
 </head>
 <body>
@@ -91,13 +137,15 @@
 		<%@include file="../subviews/nav.jsp" %>
 		
 		<article >
-			<form style="padding-bottom: 1em">
-				查詢範圍: 
-					<input type="radio" value="1" name="range" required checked><label>1個月</label>
-					<input type="radio" value="2" name="range" required><label>2個月</label>
-					<input type="radio" value="6" name="range" required><label>半年</label>
-					<input type="radio" value="24" name="range" required><label>2年</label> 內
-					<input type='submit' value="查詢訂單">
+			<form >
+				<div id="form-orders-history">
+						查詢範圍: 
+							<input type="radio" value="1" name="range" id="1month" checked><label for="1month">1個月</label>
+							<input type="radio" value="2" name="range" id="2months" required><label for="2months">2個月</label>
+							<input type="radio" value="6" name="range" id="6months" required><label for="6months">半年</label>
+							<input type="radio" value="24" name="range" id="24months" required><label for="24months">2年內</label> 
+							<input id="order-submit" type='submit' value="查詢訂單">
+				</div>
 			</form>
 			
 			<%
@@ -112,7 +160,9 @@
 			
 			<% if(list == null || list.size() == 0) {%>	
 			
-				<p>指定日期範圍(1個月)內，查無歷史訂單!</p>
+				<div id="no-orders-history">
+		            <h2>指定日期範圍(1個月)內，查無歷史訂單!</h2>
+		        </div>	
 				
 			<% }else{%>	
 			

@@ -19,6 +19,7 @@ import com.ailaptopmall.entity.PaymentType;
 import com.ailaptopmall.entity.ShippingType;
 import com.ailaptopmall.entity.ShoppingCart;
 import com.ailaptopmall.exception.AILMException;
+import com.ailaptopmall.exception.StockShortageException;
 import com.ailaptopmall.service.OrderService;
 
 /**
@@ -110,6 +111,11 @@ public class CheckOutServlet extends HttpServlet {
 					session.removeAttribute("cart"); //結帳成功務必清除session中的購物車
 					request.setAttribute("order", order);
 					request.getRequestDispatcher("check_out_success.jsp").forward(request, response);
+					return;
+					
+				} catch (StockShortageException e) {
+					errors.add(e.getMessage() + ",請聯絡Admin");
+					response.sendRedirect("cart.jsp");
 					return;
 				} catch (AILMException e) {
 					errors.add(e.getMessage() + ",請聯絡Admin");

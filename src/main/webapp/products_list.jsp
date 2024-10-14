@@ -40,6 +40,7 @@
     
        #container-product-list{
             background-image: url(./images/background-img.jpg);
+            height: 1800px;
        }
        
        #product-list{
