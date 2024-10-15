@@ -291,7 +291,7 @@
 		<%@include file="./subviews/nav.jsp" %>
         
         <%  //1.取得request中的queryString
-			String productId = "10";// request.getParameter("productId");
+			String productId =request.getParameter("productId");
 			Product p = null;			
 			ProductService pService = new ProductService();
 			if(productId!=null && (productId=productId.trim()).length()>0){

@@ -111,7 +111,7 @@
                 <a href="<%=request.getContextPath() %>/member/orders_history.jsp">
                     <button id="btn">歷史訂單</button>
                 </a>
-                <a href="<%=request.getContextPath() %>/index.jsp">
+                <a href="<%=request.getContextPath() %>/member/order.jsp?orderId=${order.getId()}">
                     <button id="btn">檢視訂單</button>
                 </a>
             </div>

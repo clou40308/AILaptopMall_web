@@ -123,8 +123,10 @@
 		#order-submit:active {
             transform: scale(0.95);  
         }
-
-
+	
+		#a-order{
+			color:blue;
+		}
 	</style>
 </head>
 <body>
@@ -173,7 +175,7 @@
 					<div><%=order.getId() %></div><div><%= order.getCreatedDate() %>, <%= order.getCreatedTime() %></div>
 					<div><%= order.getStatus() %></div><div><%= order.getShippingType().getDescription() %> <%= order.getPaymentType().getDescription() %></div>
 					<div><%= order.getTotalAmount() %>元</div><div> 總金額(含手續費)<%= order.getTotalAmountWithFee() %>元</div>
-					<a href="order.jsp?orderId=<%=order.getId() %>">檢視明細</a>
+					<a id="a-order" href="order.jsp?orderId=<%=order.getId() %>">檢視明細</a>
 					<hr>
 				</li>
 				<% } %>
