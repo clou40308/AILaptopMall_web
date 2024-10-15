@@ -1,3 +1,4 @@
+<%@page import="com.ailaptopmall.service.ProductService"%>
 <%@page import="com.ailaptopmall.entity.CartItem"%>
 <%@page import="java.util.Set"%>
 <%@page import="com.ailaptopmall.entity.ShoppingCart"%>
@@ -178,8 +179,12 @@
 						</tr>
 					</thead>
 					<tbody>
-						<% 	Set<CartItem> itemSet = cart.getCartItemsSet();					
-							for(CartItem item:itemSet){						
+						<% 	
+							ProductService pService = new ProductService();
+							Set<CartItem> itemSet = cart.getCartItemsSet();					
+							for(CartItem item:itemSet){
+								int stock = pService.getStockByProductIdSizeNameSpecName(item.getProductId(), item.getSizeName(), item.getSpecName());
+								item.setStock(stock);			
 						%>
 						<tr>
 							<td><%= item.getProductId() %></td>
@@ -195,7 +200,8 @@
 								<div><%= item.getDiscountString() %></div> 
 								<span class='price'><%= item.getPrice() %></span>元
 							</td>						
-							<td><input type="number" name="quantity<%=item.hashCode() %>" min="1" max="<%= item.getStock() %>" value="<%= cart.getQuantity(item) %>" required>  </td>
+							<td><input type="number" name="quantity<%=item.hashCode() %>" min='<%=item.getStock()==0?0:1 %>' max='<%=item.getStock()==0?0:item.getStock() %>' 
+										value="<%= cart.getQuantity(item) %>" required>  </td>
 							<td><%= cart.getAmount(item) %>元</td>
 							<td><input type="checkbox" name="delete<%=item.hashCode() %>"></td>
 						</tr>
