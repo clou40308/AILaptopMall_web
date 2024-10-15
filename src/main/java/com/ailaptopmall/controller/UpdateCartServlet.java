@@ -46,8 +46,11 @@ public class UpdateCartServlet extends HttpServlet {
 					//修改數量
 					if(quantity!=null && quantity.matches("\\d+")) {
 						int qty = Integer.parseInt(quantity);
-						if(qty==0) cart.remove(item);
-						else cart.update(item, qty);
+						if(qty>0) {
+							cart.update(item, qty);
+						}else {
+							cart.remove(item);
+						}
 					}
 				}else {
 					cart.remove(item);

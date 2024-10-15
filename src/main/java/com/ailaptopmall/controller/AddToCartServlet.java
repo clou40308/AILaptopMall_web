@@ -76,12 +76,14 @@ public class AddToCartServlet extends HttpServlet {
 		}
 		
 		if(errors.size()>0)this.log("加入cart 發生錯誤: "+errors);
-		
-		//3.原來是同步請求，外部轉址到cart.jsp
-		//response.sendRedirect("member/cart.jsp");
-		
-		//3.改成非同步請求，內部轉交到small_cart.jsp
-		request.getRequestDispatcher("small_cart.jsp").forward(request, response);
+		String submit = request.getParameter("submit");
+		if(submit!=null) {
+			//3. 原來是同步請求，外部轉址到cart.jsp
+			response.sendRedirect("member/cart.jsp");
+		}else {
+			//3. 改成非同步請求，內部轉交到small_cart.jsp
+			request.getRequestDispatcher("small_cart.jsp").forward(request, response);
+		}
 	}
 
 }

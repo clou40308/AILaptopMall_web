@@ -97,24 +97,31 @@
             $("#darken").hide();
         }
         
+        var notAjax = false;
         function sendAjaxAddToCart(){
-        	//alert("sendAjaxAddToCart");
+        	//alert("不要ajax:" + notAjax);
         	
         	//自行送出ajax非同步請求
-        	$.ajax({
-        		url:$("#cartForm").attr("action"),
-        		method:$("#cartForm").attr("method"),
-        		data:$("#cartForm").serialize()
-        	}).done(sendAjaxAddToCartDoneHandler);	
+			if(!notAjax){
+				$.ajax({
+					url: $("#cartForm").attr("action"),
+					method: $("#cartForm").attr("method"),
+					data: $("#cartForm").serialize()
+				}).done(sendAjaxAddToCartDoneHandler);
+			}
+        	
         	//取消同步請求
-        	return false;
+			return notAjax;
         }
         
         function sendAjaxAddToCartDoneHandler(result, status, xhr){
-			//alert(result);
+        	//alert("加入購物車成功: 共"+ result.totalQty + "件");	//for test，alert購買項數	 
 
-			$(".totalQtySpan").text("("+result.totalQty+")");
+			$(".totalQtySpan").text("("+result.totalQty+")");//帶入購買總數量
+			
+			//TODO:顯示簡易購物車
 		}
+        
 	</script>	
     <style>
        
@@ -216,12 +223,26 @@
 			margin-left: 10px;
 	   }
 	   
-		#submit-btn:hover {
+	   #cart-btn{
+	   		width: 125px;
+			height: 35px;
+			font-size: 18px;
+			background-color:  #ea1717;
+			color: #fff;
+			border: 0px;
+			border-radius: 10px;
+			margin-top: 10px;
+			margin-left: 20px;
+	   }
+	   
+		#submit-btn:hover,
+		#cart-btn:hover{
             cursor: pointer;
             transform: scale(1.05);
         }
 
-        #submit-btnn:active {
+        #submit-btnn:active,
+        #cart-btn:active {
             transform: scale(0.95);  
         }
         
@@ -369,7 +390,10 @@
 								<label>數量:</label>
 								<input type="number" name="quantity" required min="1" max="<%= p.getStock() %>">
 							</div>						
-							<input type="submit"  id="submit-btn"  value="加入購物車">						
+							<input type="submit"  id="submit-btn"  value="加入購物車">
+							<button type="submit" id="cart-btn" name="submit"value="notAjax" onclick="notAjax=true;" >
+								直接購買
+							</button>						
 						</form>
 
 					</div>
