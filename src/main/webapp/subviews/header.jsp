@@ -40,8 +40,8 @@
                 <div id="cart-icon-area-position">
                     <a href="<%= request.getContextPath() %>/member/cart.jsp">
                         <img src="<%= request.getContextPath() %>/images/Shopping cart.png">
-                        <span>
-                        ${cart==null || cart.isEmpty()?"":"(".concat(cart.getTotalQuantity()).concat(")")}
+                        <span class="totalQtySpan">${cart==null || cart.isEmpty()?"":"(".concat(cart.getTotalQuantity()).concat(")")}
+                        <% //${cart==null || cart.isEmpty()?"":"(".concat(cart.getTotalQuantity()).concat(")")}%>
                         </span>
                     </a>
                 </div>

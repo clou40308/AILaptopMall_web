@@ -97,6 +97,24 @@
             $("#darken").hide();
         }
         
+        function sendAjaxAddToCart(){
+        	//alert("sendAjaxAddToCart");
+        	
+        	//自行送出ajax非同步請求
+        	$.ajax({
+        		url:$("#cartForm").attr("action"),
+        		method:$("#cartForm").attr("method"),
+        		data:$("#cartForm").serialize()
+        	}).done(sendAjaxAddToCartDoneHandler);	
+        	//取消同步請求
+        	return false;
+        }
+        
+        function sendAjaxAddToCartDoneHandler(result, status, xhr){
+			//alert(result);
+
+			$(".totalQtySpan").text("("+result.totalQty+")");
+		}
 	</script>	
     <style>
        
@@ -273,7 +291,7 @@
 		<%@include file="./subviews/nav.jsp" %>
         
         <%  //1.取得request中的queryString
-			String productId = request.getParameter("productId");
+			String productId = "10";// request.getParameter("productId");
 			Product p = null;			
 			ProductService pService = new ProductService();
 			if(productId!=null && (productId=productId.trim()).length()>0){
@@ -318,7 +336,7 @@
 							<p>庫存: 共<%= p.getStock() %>台<span id="theSizeStock"></span></p>
 						</div>
 												
-						<form action="add_to_cart.do" method="POST">
+						<form id="cartForm" action="add_to_cart.do" method="POST" onsubmit="return sendAjaxAddToCart()">
 							<input type="hidden" name="productId" value="<%= p.getId() %>">
 							
 							<% if(p.getSizeList()!=null && p.getSizeList().size()>0){%>
