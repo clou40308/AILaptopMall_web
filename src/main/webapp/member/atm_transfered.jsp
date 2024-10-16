@@ -77,6 +77,93 @@
         	color: blue;
         	text-decoration:underline;
         }
+        
+        #atm-transfered{
+        	width: 560px;
+        	margin: auto;
+			font-size: 24px;
+        }
+        
+        #orderId{
+        	width: 70px;
+			height: 25px;
+			font-size: 24px;
+			
+        }
+
+		#bank,
+		#last5Code{
+			width: 240px;
+			height: 25px;
+			font-size: 24px;
+		}
+
+		#amount{
+			width: 150px;
+			height: 25px;
+			font-size: 24px;
+		}
+
+		#date{
+			width:180px;
+			height: 25px;
+			font-size: 24px;
+			margin-left: 22px;
+		}
+
+		#time{
+			width:180px;
+			height: 25px;
+			font-size: 24px;
+			margin-left: 12px;
+		}
+		
+		#reset{
+			width: 75px;
+			height: 33px;
+			font-size: 20px;
+			margin-right: 20px;
+			background-color: #ea1717;
+			color: #fff;
+			border: 0px;
+			border-radius: 5px;
+		}
+		
+		#submit{
+			width: 75px;
+			height: 33px;
+			font-size: 20px;
+			background-color: #ea1717;
+			color: #fff;
+			border: 0px;
+			border-radius: 5px;
+		}
+
+		#reset:hover,
+		#submit:hover {
+            cursor: pointer;
+            transform: scale(1.1);
+		}
+
+		#reset:active,
+		#submit:active {
+            transform: scale(0.9);
+		}
+
+		#date-area{
+			width: 100%;
+			height: 40px;
+			display: flex;
+			align-items: center;
+		}
+
+		#btn-area{
+			width: 100%;
+			height: 50px;
+			display: flex;
+			justify-content: right;
+			align-items: center;
+		}
     </style>
 </head>
 
@@ -103,35 +190,34 @@
             		<h2>查無需通知轉帳的訂單資料，回<a id="back-orders-history" href='orders_history.jsp'>歷史訂單</a></h2>
         		</div>	
 	    <% }else{%>
-			    <form action='atm_transfered.do' method='POST' style='width: 20em;margin: auto;'>
+			    <form  id="atm-transfered" action='atm_transfered.do' method='POST' >
 			    	<div id="theErrorsDiv">	${errors}</div>
 			        <p>
-			            <label>訂單編號:</label>
+			            <label for="orderId">訂單編號:</label>
 			            <input type='hidden' name='orderId' value='<%= orderId%>' readonly>
-			            <input value='<%= order.getId()%>' readonly>
+			            <input id="orderId" value='<%= order.getId()%>' readonly>
 			        </p>
 			        <p>
-			            <label>轉帳銀行:</label>
-			            <input name='bank' required placeholder='請輸入轉帳銀行名稱'>
+			            <label for="bank">轉帳銀行:</label>
+			            <input id="bank" name='bank' required placeholder='請輸入轉帳銀行名稱'>
 			        </p>
 			        <p>
-			            <label>帳號後5碼:</label>
-			            <input name='last5Code' required placeholder='請輸入轉帳帳號後5碼'>
+			            <label for="last5Code">帳號後5碼:</label>
+			            <input id="last5Code" name='last5Code' required placeholder='請輸入轉帳帳號後5碼'>
 			        </p>
 			        <p>
-			            <label>轉帳金額:</label>
-			            <input name='amount' name='amount' required value='<%= order.getTotalAmountWithFee() %>' >
+			            <label for="amount">轉帳金額:</label>
+			            <input id="amount" name='amount'  required value='<%= order.getTotalAmountWithFee() %>' >
 			        </p>
-			        <p>
-			            <label>轉帳時間:</label>
-			            <input type='date' name='transDate' required min='<%= order.getCreatedDate()%>' max='<%= LocalDate.now()%>'>
-			            <input type='time' name='transTime' required>
-			        </p>
-			
-			        <p style='text-align:right'>
-			            <input type="reset" value='Reset'>
-			            <input type="submit" value='確定'>
-			        </p>
+					<div id="date-area">
+						<label for="date">轉帳時間:</label>
+						<input id="date" type='date' name='transDate' required min='<%= order.getCreatedDate()%>' max='<%= LocalDate.now()%>'>
+						<input id="time" type='time' name='transTime' required>
+					</div>
+			        <div id="btn-area">
+			            <input id="reset" type="reset" value='Reset'>
+			            <input id="submit" type="submit" value='確定'>
+			        </div>
 			    </form>
    		<% } %>
    </article>
