@@ -214,6 +214,13 @@
 			height:25px;
 			font-size: 20px;
 	   }
+	   
+	   #notification-of-transfer{
+	   		font-size: 24px;
+	   		margin-left: 40px;
+	   		color:blue;
+	   		text-decoration:underline;
+	   }
     </style>
 </head>
 <body>
@@ -260,6 +267,11 @@
 						<label>付款方式: </label>
 						<input readonly value="<%= order.getPaymentType().getDescription() %>">
 					</span>		
+					
+					<% if(order.getStatus()==0 && order.getPaymentType()==PaymentType.ATM){ %>
+							<a id="notification-of-transfer" href="atm_transfered.jsp?orderId=<%=order.getId()%>">通知已轉帳</a>
+					<% } %>
+					
 					<span id="totalAmountWithFeeSpan"> 
 						<label>總金額(含物流費):
 							<span id="totalAmountWithFee"><%= order.getTotalAmountWithFee() %></span>元
