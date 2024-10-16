@@ -1,3 +1,5 @@
+<%@page import="com.ailaptopmall.entity.OrderStatusLog"%>
+<%@page import="java.util.List"%>
 <%@page import="com.ailaptopmall.entity.Customer"%>
 <%@page import="com.ailaptopmall.entity.OrderItem"%>
 <%@page import="com.ailaptopmall.service.OrderService"%>
@@ -236,9 +238,13 @@
 				Customer member = (Customer)session.getAttribute("member");
 				String orderId = request.getParameter("orderId");
 				Order order = null;
+				List<OrderStatusLog> statusLogList = null;
 				OrderService oService = new OrderService();
 				if(orderId!=null){
 					order = oService.getOrderById(member, orderId);
+					if(order!=null){
+			             statusLogList = oService.getOrderStatusLog(orderId);
+			        }
 				}
 			%>
 			<% if(order==null){%>
