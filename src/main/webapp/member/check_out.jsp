@@ -27,13 +27,33 @@
 	<meta name="theme-color" content="#ffffff">
 	
     <script>
+	$(init);
+	
+	function init(){
+		<%if("POST".equals(request.getMethod())) { %>
+		repopulateFormData();				
+	}
+
+	function repopulateFormData(){
+		$("select[name=shippingType]").val("${param.shippingType}");
+		$("select[name=paymentType]").val("${param.paymentType}");
+		$("input[name=name]").val("${param.name}");
+		$("input[name=email]").val("${param.email}");
+		$("input[name=phone]").val("${param.phone}");
+		$("select[name=shippingType]").trigger("change");
+		$("select[name=paymentType]").trigger("change");				
+		$("input[name=shippingAddress]").val("${param.shippingAddress}");
+		<% } %>
+	}
+	
 	function copyMemberData(){
-		//alert("copyMemberData");
-		
+		//alert("copyMemberData");				
 		$("input[name=name]").val("${sessionScope.member.getName()}");
 		$("input[name=email]").val("${sessionScope.member.getEmail()}");
 		$("input[name=phone]").val("${sessionScope.member.getPhone()}");
-		$("input[name=shippingAddress]").val("${sessionScope.member.getAddress()}");
+		if($("select[name=shippingType]").val()=="${ShippingType.HOME.name()}"){
+			$("input[name=shippingAddress]").val("${sessionScope.member.getAddress()}");
+		}
 	}
 	
 	function changePaymentOption(){				
@@ -56,15 +76,26 @@
 	}
 	
 	function changeShippingAddress(shippingType){
-		alert(shippingType);
+		console.log("貨運方式: ", shippingType);
+		
 		//TODO:調整shippingAddress的輸入方式
+		$("input[name=shippingAddress]").removeAttr("list");
+		$("input[name=shippingAddress]").attr("required", true);
+		$("input[name=shippingAddress]").removeAttr("readonly");
+		$("input[name=shippingAddress]").val('');
+		$("#storeButton").hide();
 		switch(shippingType){
-		case 'SHOP':
-			alert('門市');break;
-		case 'HOME':
-			alert('宅配');break;
-		case 'STORE':
-			alert('超商');break;
+		case 'SHOP':					
+			$("input[name=shippingAddress]").attr("list", "shoplist");
+			$("input[name=shippingAddress]").attr("autocomplete", "off");					
+			break;
+		case 'HOME':					
+			$("input[name=shippingAddress]").attr("autocomplete", "on")
+			break;
+		case 'STORE':					
+			$("input[name=shippingAddress]").prop("readonly", true);					
+			$("#storeButton").show();
+			break;
 		case 'NO':
 			alert('無須貨運');
 		}
@@ -231,7 +262,7 @@
 	   
 	   #fieldset-shipping-address{
 	   		height: 25px;
-			width: 380px;
+			width: 700px;
 			font-size: 20px;
 			margin-left: 20px;
 	   }
@@ -329,10 +360,52 @@
 								<option>101旗艦店 台北市信義區信義路五段7號</option>
 								<option>復北門市 台北市復興北路99號1F</option>									
 							 </datalist>
-							 <input id="convenience-store-button" type="button" value="選擇超商" style="dispaly:none">								
+							 <input id="convenience-store-button" type="button" value="選擇超商" style="dispaly:none" onclick="goEZShip()">								
 						</div>
 					</fieldset>
 				</form>
+				
+			<!-- ezship程式 start -->
+		  <script>
+		           function goEZShip() {//前往EZShip選擇門市
+		               //if (confirm("Go EZShip前，你的網址已經改用ip Address了嗎?")) {
+		               //   alert("出發至EZShip[選擇超商]");
+		               // } else {
+		               //    alert("快改網址!並重新登入與購買");
+		               //    return;
+		               // }
+		
+		               //去除文字欄位資料前後的多餘空白
+			           $("input[name=name]").val($("input[name=name]").val().trim());
+			           $("input[name=email]").val($("input[name=email]").val().trim());
+			           $("input[name=phone]").val($("input[name=phone]").val().trim());
+			           $("input[name=shippingAddress]").val($("input[name=shippingAddress]").val().trim());
+		
+		               var protocol = "https"; //之後務必要改成https
+		               var ipAddress = "<%= java.net.InetAddress.getLocalHost().getHostAddress()%>";
+		               var url = protocol + "://" + ipAddress + ":" + location.port + "<%=request.getContextPath()%>/member/ezship_callback.jsp";
+		               $("#rtURL").val(url);
+		
+		           		//$("#webPara").val($("form[action='check_out.do']").serialize());
+		               $("#webPara").val($("#checkOutForm").serialize());
+		              // alert('現在網址不得為[locolhost]: '+url); //測試用，測試完畢後請將此行comment
+		               //alert($("#webPara").val()) //測試用，測試完畢後請將此行comment
+		
+		               $("#ezForm").submit(); 
+		           }
+           
+           </script>
+           <form id="ezForm" method="post" name="simulation_from" action="https://map.ezship.com.tw/ezship_map_web.jsp" > 
+               <input type="hidden" name="suID"  value="test@vgb.com"> <!-- 業主在 ezShip 使用的帳號, 隨便寫 -->       
+               <input type="hidden" name="processID" value="VGB202107050000005"> <!-- 購物網站自行產生之訂單編號, 隨便寫 -->
+               <input type="hidden" name="stCate"  value=""> <!-- 取件門市通路代號 -->        
+               <input type="hidden" name="stCode"  value=""> <!-- 取件門市代號 -->        
+               <input type="hidden" name="rtURL" id="rtURL" value=""> <!-- 回傳路徑及程式名稱 -->
+               <input type="hidden" id="webPara" name="webPara" value=""> <!-- 結帳網頁中checkOutForm中的輸入欄位資料。ezShip將原值回傳，才能帶回結帳網頁 -->
+           </form>
+		   <!-- ezship程式 end -->
+				
+				
 				<details>
 					<summary>共<%= cart.getTotalQuantity() %>件, 總金額(含物流費): <span id="totalAmountWithFee"><%= cart.getTotalAmount() %></span>元 (點選即可看到明細)</summary>
 					<table id="cartDetails">
