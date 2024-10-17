@@ -11,7 +11,6 @@
 		if(productId!=null && sizeName!=null){
 			list = pService.getProductSpecsByIdAndSizeName(productId, sizeName);	
 		}
-		
 		if(list!=null && list.size()>0){
 	%>	
 	<option value="">請選擇</option>
