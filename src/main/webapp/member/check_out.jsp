@@ -30,6 +30,7 @@
 	$(init);
 	
 	function init(){
+		$("#convenience-store-button").hide();
 		<%if("POST".equals(request.getMethod())) { %>
 		repopulateFormData();				
 	}
@@ -83,7 +84,7 @@
 		$("input[name=shippingAddress]").attr("required", true);
 		$("input[name=shippingAddress]").removeAttr("readonly");
 		$("input[name=shippingAddress]").val('');
-		$("#storeButton").hide();
+		$("#convenience-store-button").hide();
 		switch(shippingType){
 		case 'SHOP':					
 			$("input[name=shippingAddress]").attr("list", "shoplist");
@@ -94,7 +95,7 @@
 			break;
 		case 'STORE':					
 			$("input[name=shippingAddress]").prop("readonly", true);					
-			$("#storeButton").show();
+			$("#convenience-store-button").show();
 			break;
 		case 'NO':
 			alert('無須貨運');
