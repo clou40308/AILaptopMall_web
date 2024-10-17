@@ -262,7 +262,7 @@
 						<label>訂購時間: </label><input readonly value="<%= order.getCreatedDate()%>, <%= order.getCreatedTime() %>">	
 					</span>
 					<span id="orderStatusSpan">
-						<label>處理狀態: </label><input readonly value="<%= order.getStatus() %> (新訂單)"> 
+						<label>處理狀態: </label><input readonly value="<%= order.getStatus() %> (<%= order.getStatusDescription()%>)"> 
 					</span>		
 				</p>
 				<p>
@@ -285,11 +285,17 @@
 					</span>				
 				</p>		
 				<div id="status-area">
-					<span class='statusSpan' title="<%= order.getCreatedDate()%>, <%= order.getCreatedTime() %>">新訂單</span> > 
-					<span class='statusSpan notYet' title="2024-10-11, 14:05:18">已付款</span> >
-					<span class='statusSpan notYet'>已出貨</span> >
-					<span class='statusSpan notYet'>已簽收</span> >
-					<span class='statusSpan notYet'>已完成</span>
+					<span class='statusSpan' title="<%= order.getCreatedDate()%>, <%= order.getCreatedTime() %>"><%= order.getStatusDescription(0)%></span> > 
+					<% if(order.getPaymentType()==PaymentType.ATM || order.getPaymentType()==PaymentType.CARD){%>
+					<span class='statusSpan notYet orderStatus1 orderStatus2' title="2024-10-11, 14:05:18"><%= order.getStatusDescription(2)%></span> >
+					<% } %>
+					<span class='statusSpan notYet orderStatus3'><%= order.getStatusDescription(3)%></span> >					
+					<% if(order.getPaymentType()==PaymentType.SHOP || order.getPaymentType()==PaymentType.STORE){%>
+					<span class='statusSpan notYet orderStatus4' title="2024-10-11, 14:05:18"><%= order.getStatusDescription(4)%></span> >
+					<% } %>
+					
+					<span class='statusSpan notYet orderStatus5'><%= order.getStatusDescription(5)%></span> >
+					<span class='statusSpan notYet orderStatus6 '><%= order.getStatusDescription(6)%></span>
 				</div>
 							
 				<fieldset>
@@ -346,4 +352,19 @@
 	
 	<%@include file="/subviews/footer.jsp" %>	
 </body>
+	<script>
+        $(setStatus); //帶入狀態log資料
+        function setStatus(){
+             <% if(statusLogList!=null && statusLogList.size()>0){
+                 for(OrderStatusLog log:statusLogList){%>
+                 	  //alert(<%= log.getStatus() %>); //for test
+                      $(".orderStatus<%= log.getStatus() %>").removeClass("notYet");                      
+                      $(".orderStatus<%= log.getStatus() %>").attr("title", "<%= log.getLogTime()%>");
+                      if($(".orderStatus<%= log.getStatus()-1 %>").hasClass("notYet")){
+                          $(".orderStatus<%= log.getStatus()-1 %>").removeClass("notYet");
+                      }
+             <%  }}%>
+        }
+        //自訂的javascript function
+    </script>	
 </html>

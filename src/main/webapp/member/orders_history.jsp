@@ -142,7 +142,7 @@
 			<form >
 				<div id="form-orders-history">
 						查詢範圍: 
-							<input type="radio" value="1" name="range" id="1month" checked><label for="1month">1個月</label>
+							<input type="radio" value="1" name="range" id="1month" required checked><label for="1month">1個月</label>
 							<input type="radio" value="2" name="range" id="2months" required><label for="2months">2個月</label>
 							<input type="radio" value="6" name="range" id="6months" required><label for="6months">半年</label>
 							<input type="radio" value="24" name="range" id="24months" required><label for="24months">2年內</label> 
@@ -151,19 +151,27 @@
 			</form>
 			
 			<%
-				String range = request.getParameter("range");
-				if(range == null || range.length()==0) range="1";
-				
-				Customer member =(Customer)session.getAttribute("member"); //這裡不須宣告 已經在nav.jsp子網頁宣告
-				List <Order> list = null;
-				OrderService oService = new OrderService();
-				list = oService.getOrdersHistory(member);
+					String range = request.getParameter("range");	
+					if(range==null) range="1";
+					int rangeNum=1;				
+					switch(range){
+						case "1":
+						case "2":
+						case "6":
+						case "24":
+							rangeNum = Integer.parseInt(range);
+					}
+					
+					Customer member = (Customer)session.getAttribute("member"); //這裡不須宣告 已經在nav.jsp子網頁宣告
+					List<Order> list = null;
+					OrderService oService = new OrderService();
+					list = oService.getOrdersHistory(member, rangeNum);	
 			%>
 			
 			<% if(list == null || list.size() == 0) {%>	
 			
 				<div id="no-orders-history">
-		            <h2>指定日期範圍(1個月)內，查無歷史訂單!</h2>
+		            <h2>指定日期範圍(<%=rangeNum %>個月)內，查無歷史訂單!</h2>
 		        </div>	
 				
 			<% }else{%>	
@@ -173,7 +181,7 @@
 				<% for(Order order:list) {%>
 				<li>
 					<div><%=order.getId() %></div><div><%= order.getCreatedDate() %>, <%= order.getCreatedTime() %></div>
-					<div><%= order.getStatus() %></div><div><%= order.getShippingType().getDescription() %> <%= order.getPaymentType().getDescription() %></div>
+					<div><%= order.getStatusDescription() %></div><div><%= order.getShippingType().getDescription() %> <%= order.getPaymentType().getDescription() %></div>
 					<div><%= order.getTotalAmount() %>元</div><div> 總金額(含手續費)<%= order.getTotalAmountWithFee() %>元</div>
 					<a id="a-order" href="order.jsp?orderId=<%=order.getId() %>">檢視明細</a>
 					<hr>
