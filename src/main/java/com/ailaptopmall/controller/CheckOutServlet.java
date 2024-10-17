@@ -20,6 +20,7 @@ import com.ailaptopmall.entity.ShippingType;
 import com.ailaptopmall.entity.ShoppingCart;
 import com.ailaptopmall.exception.AILMException;
 import com.ailaptopmall.exception.StockShortageException;
+import com.ailaptopmall.service.MailService;
 import com.ailaptopmall.service.OrderService;
 
 /**
@@ -107,6 +108,7 @@ public class CheckOutServlet extends HttpServlet {
 				
 					oService.checkOut(order);
 					
+					MailService.sendCheckOutSuccess(member.getEmail(), order.getId());
 					// 3.1 轉交給成功check_out_success.jsp
 					session.removeAttribute("cart"); //結帳成功務必清除session中的購物車
 					request.setAttribute("order", order);

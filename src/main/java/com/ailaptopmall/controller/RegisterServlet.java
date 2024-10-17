@@ -16,6 +16,7 @@ import com.ailaptopmall.entity.Customer;
 import com.ailaptopmall.exception.AILMDataInvalidException;
 import com.ailaptopmall.exception.AILMException;
 import com.ailaptopmall.service.CustomerService;
+import com.ailaptopmall.service.MailService;
 
 
 /**
@@ -94,6 +95,8 @@ public class RegisterServlet extends HttpServlet {
 				
 				CustomerService service = new CustomerService();
 				service.register(c);
+				
+				MailService.sendHelloMailWithLogo(email);
 				
 				//3.1 內部轉交(forward)成功 register_success.jsp
 				request.setAttribute("member", c);
