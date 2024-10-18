@@ -36,15 +36,29 @@
             <hr id="account-area-hr">
             <% } %>
             <span><%= member!=null?member.getName()+"，你好!":"" %></span>
-            <div id="cart-icon-area">
-                <div id="cart-icon-area-position">
-                    <a href="<%= request.getContextPath() %>/member/cart.jsp">
-                        <img src="<%= request.getContextPath() %>/images/Shopping cart.png">
-                        <span class="totalQtySpan">${cart==null || cart.isEmpty()?"":"(".concat(cart.getTotalQuantity()).concat(")")}
-                        <% //${cart==null || cart.isEmpty()?"":"(".concat(cart.getTotalQuantity()).concat(")")}%>
-                        </span>
-                    </a>
-                </div>
+            
+			<div class="hover-container" id="hover-container">
+
+	            <div id="cart-icon-area">
+
+	            	<div class="hover-div" id="hover-div">
+                        <span id="ajax-product-name">${sessionScope.cart.getCartProduct()}</span>
+                        <span id="ajax-product-size"></span>
+                        <span id="ajax-product-spec"></span>
+                        <span id="ajax-product-qty"></span>
+                    </div>
+	            	
+	                <div id="cart-icon-area-position">
+	                    <a href="<%= request.getContextPath() %>/member/cart.jsp">
+	                        <img src="<%= request.getContextPath() %>/images/Shopping cart.png">
+	                        <span class="totalQtySpan">${cart==null || cart.isEmpty()?"":"(".concat(cart.getTotalQuantity()).concat(")")}
+	                        <% //${cart==null || cart.isEmpty()?"":"(".concat(cart.getTotalQuantity()).concat(")")}%>
+	                        </span>
+	                    </a>
+	                </div>
+                
+        		</div>
+        		
         	</div>
         </div>
 

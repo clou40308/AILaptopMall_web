@@ -138,4 +138,23 @@ a {
     right: 22px;
     bottom: 32px;
 }
+
+.hover-container {
+  	position: relative;
+}
+
+.hover-div {
+	  position: absolute;
+	  top: 100%;
+	  right: -50px;
+	  width: 500px;
+	  height: 200px;
+	  background-color: rgb(236, 234, 234);
+	  color: black;
+	  text-align: center;
+	  padding: 10px;
+	  z-index: 1;  
+	  border-radius: 15px;
+      display: none;  
+}
 /* header css */

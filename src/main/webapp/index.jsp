@@ -30,6 +30,15 @@
 			$(".dot,#next,#prev").click(moveHandler);//run the same function
 			myInterval = setTimeout(moveHandler, 3000);//initial timer
 			$("#search-bar-keyword").focus(focusHandler).blur(blurHandler);
+			
+		    $('#hover-container').hover(
+	    	      function() {
+	    	        $('#hover-div').stop(true, true).fadeIn();  // 滑鼠移入
+	    	      },
+	    	      function() {
+	    	        $('#hover-div').stop(true, true).fadeOut(); // 滑鼠移出
+	    	      }
+    	    );
 		});
         function focusHandler() {
             $("#darken").show();

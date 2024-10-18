@@ -32,6 +32,15 @@
 			$("#productMainData-size span").on("click", changeSizeData);
 			$("select[name=spec]").on("change", changeSpecData);
 			$("#search-bar-keyword").focus(focusHandler).blur(blurHandler);
+			
+		    $('#hover-container').hover(
+	    	      function() {
+	    	        $('#hover-div').stop(true, true).fadeIn();  // 滑鼠移入
+	    	      },
+	    	      function() {
+	    	        $('#hover-div').stop(true, true).fadeOut(); // 滑鼠移出
+	    	      }
+	   	    );
 		}
 		
 		function changeSizeData(){
@@ -116,10 +125,14 @@
         
         function sendAjaxAddToCartDoneHandler(result, status, xhr){
         	//alert("加入購物車成功: 共"+ result.totalQty + "件");	//for test，alert購買項數	 
-
+			console.log("加入購物車成功: 共"+ result.totalQty + "件,名稱:"+result.cart[0].name+",螢幕尺寸:"+result.cart[0].size+",規格:"+result.cart[0].spec+"數量:"+result.cart[0].qty);
 			$(".totalQtySpan").text("("+result.totalQty+")");//帶入購買總數量
 			
 			//TODO:顯示簡易購物車
+			//$("#ajax-product-name").text(result.cart[0].name);
+			//$("#ajax-product-size").text(result.cart[0].size);
+			//$("#ajax-product-spec").text(result.cart[0].spec);
+			//$("#ajax-product-qty").text(result.cart[0].qty);
 		}
         
 	</script>	
