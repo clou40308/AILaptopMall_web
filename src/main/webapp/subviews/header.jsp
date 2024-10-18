@@ -1,3 +1,6 @@
+<%@page import="com.ailaptopmall.entity.CartItem"%>
+<%@page import="java.util.Set"%>
+<%@page import="com.ailaptopmall.entity.ShoppingCart"%>
 <%@page import="com.ailaptopmall.entity.Customer"%>
 <%@page pageEncoding="UTF-8" %>
 <!-- header.jsp start -->
@@ -19,6 +22,7 @@
         <div id="account-area">
         	<%				
 				Customer member = (Customer)session.getAttribute("member");
+        		ShoppingCart cart = (ShoppingCart)session.getAttribute("cart");	
 			%>
             <a href="<%= request.getContextPath() %>/products_list.jsp">買筆電</a>
             <hr id="account-area-hr">
@@ -40,14 +44,23 @@
 			<div class="hover-container" id="hover-container">
 
 	            <div id="cart-icon-area">
-
+					
+					<%
+						if(cart!=null && cart.size()>0){
+						Set<CartItem> cartItemSet = cart.getCartItemsSet();		
+					%>		
 	            	<div class="hover-div" id="hover-div">
-                        <span id="ajax-product-name">${sessionScope.cart.getCartProduct()}</span>
-                        <span id="ajax-product-size"></span>
-                        <span id="ajax-product-spec"></span>
-                        <span id="ajax-product-qty"></span>
+	            		<%
+							for(CartItem item:cartItemSet){
+						%>
+                        <span id="ajax-product-name"><%=item.getProductName()%></span>
+                        <span id="ajax-product-size"><%=item.getSizeName()%></span>
+                        <span id="ajax-product-spec"><%=item.getSpecName()%></span>
+                        <span id="ajax-product-qty"><%=cart.getQuantity(item)%></span>
+                        <% } %>	
                     </div>
 	            	
+	            	<%}%>
 	                <div id="cart-icon-area-position">
 	                    <a href="<%= request.getContextPath() %>/member/cart.jsp">
 	                        <img src="<%= request.getContextPath() %>/images/Shopping cart.png">

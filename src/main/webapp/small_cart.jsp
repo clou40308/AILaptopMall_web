@@ -14,9 +14,13 @@
 		Set<CartItem> cartItemSet = cart.getCartItemsSet();		
 	%>	
 		<%
+		 	int size = cartItemSet.size();
+			int i = 0;
 			for(CartItem item:cartItemSet){
+				i++;
 		%>
-			{"name": "<%=item.getProductName()%>", "size":"<%=item.getSizeName()%>", "spec": "<%=item.getSpecName()%>", "qty": "<%=cart.getQuantity(item)%>"}
+			{"name": "<%=item.getProductName()%>", "size":"<%=item.getSizeName()%>", "spec": "<%=item.getSpecName()%>", "qty": "<%=cart.getQuantity(item)%>"}  
+			<%= (i < size) ? "," : ""%>
 		<% } %>	
 	<%}%>
 	]
