@@ -67,6 +67,14 @@
 			
 			//將選項套用在$("select[name=spec]")，顯示spec選單
 			$("select[name=spec]").html(result);
+			
+			$("select[name=spec]>option").click(cancelClick); //for firefox bug
+		}
+		
+		function cancelClick(event){
+			//alert($("select[name=spec]>option").length);
+			event.preventDefault();
+			return false;			
 		}
 		
 		function changeSpecData(){
