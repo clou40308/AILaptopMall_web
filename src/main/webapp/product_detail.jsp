@@ -136,7 +136,6 @@
 				//$("#ajax-product-spec").text(result.cart[i].spec);
 				//$("#ajax-product-qty").text(result.cart[i].qty);
 			}
-				
 		}
         
 	</script>	
