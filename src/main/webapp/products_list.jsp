@@ -43,6 +43,19 @@
         function blurHandler() {
             $("#darken").hide();
         }
+		function ajaxGetProductDetail(pid){
+			//alert("product_ajax.jsp?productId=" + pid); //for test
+			
+			$.ajax({
+				url: "product_ajax.jsp?productId=" + pid,
+				method:"GET"
+			}).done(ajaxGetProductDetailDoneHandler);				
+		}
+		
+		function ajaxGetProductDetailDoneHandler(result, status, xhr){
+			//alert(result); //for test
+			showHandler(result);
+		}
 	</script>
     <style>
     
@@ -152,7 +165,7 @@
 					Product p = list.get(i);
 			%>
 			<div id="productItem">
-                <a href="product_detail.jsp?productId=<%= p.getId() %>"><img src="<%= p.getPhotoUrl() %>"></a>
+                <a href="javascript:ajaxGetProductDetail(<%= p.getId() %>)"><img src="<%= p.getPhotoUrl() %>"></a><!-- TODO: ajax+lightbox -->
                 <a href="product_detail.jsp?productId=<%= p.getId() %>"><h4><%= p.getName() %></h4></a>
                 <div id="productItem-price">優惠價:<%= p instanceof SpecialOffer?((SpecialOffer)p).getDiscountString():"" %> $<%= p.getUnitPrice() %>元</div>	
             </div>
@@ -164,6 +177,7 @@
     <div id="darken"></div>
     
     <%@include file="/subviews/footer.jsp" %>	
+    <%@include file="./subviews/light_box.jsp" %>	
 </body>
 
 </html>
