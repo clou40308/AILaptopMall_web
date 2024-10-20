@@ -55,10 +55,10 @@
 							for(CartItem item:cartItemSet){
 						%>
                         <div>
-                            <span id="ajax-product-name"></span>
-                            <span id="ajax-product-size"></span>
-                            <span id="ajax-product-spec"></span>
-                            <span id="ajax-product-qty"></span>
+                            <span id="ajax-product-name"><%=item.getProductName()%></span>
+                            <span id="ajax-product-size"><%=item.getSizeName()%></span>
+                            <span id="ajax-product-spec"><%=item.getSpecName()%></span>
+                            <span id="ajax-product-qty"><%=cart.getQuantity(item)%></span>
                         </div>    
                         <% } %>	
                         

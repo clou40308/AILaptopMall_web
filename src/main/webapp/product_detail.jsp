@@ -129,10 +129,14 @@
 			$(".totalQtySpan").text("("+result.totalQty+")");//帶入購買總數量
 			
 			//TODO:顯示簡易購物車
-			$("#ajax-product-name").text(result.cart[0].name);
-			$("#ajax-product-size").text(result.cart[0].size);
-			$("#ajax-product-spec").text(result.cart[0].spec);
-			$("#ajax-product-qty").text(result.cart[0].qty);
+			for(let i = 0 ; i<result.cart.length ; i++){
+				console.log(result.cart[i].name + result.cart[i].size +result.cart[i].spec +"數量:"+result.cart[i].qty);
+				//$("#ajax-product-name").text(result.cart[i].name);
+				//$("#ajax-product-size").text(result.cart[i].size);
+				//$("#ajax-product-spec").text(result.cart[i].spec);
+				//$("#ajax-product-qty").text(result.cart[i].qty);
+			}
+				
 		}
         
 	</script>	
