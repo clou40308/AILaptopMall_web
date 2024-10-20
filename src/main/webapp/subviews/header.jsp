@@ -44,23 +44,27 @@
 			<div class="hover-container" id="hover-container">
 
 	            <div id="cart-icon-area">
+	            
 					
-					<%
+	            	<div class="hover-div" id="hover-div">
+	            	<%
 						if(cart!=null && cart.size()>0){
 						Set<CartItem> cartItemSet = cart.getCartItemsSet();		
-					%>		
-	            	<div class="hover-div" id="hover-div">
+					%>	
 	            		<%
 							for(CartItem item:cartItemSet){
 						%>
-                        <span id="ajax-product-name"><%=item.getProductName()%></span>
-                        <span id="ajax-product-size"><%=item.getSizeName()%></span>
-                        <span id="ajax-product-spec"><%=item.getSpecName()%></span>
-                        <span id="ajax-product-qty"><%=cart.getQuantity(item)%></span>
+                        <div>
+                            <span id="ajax-product-name"></span>
+                            <span id="ajax-product-size"></span>
+                            <span id="ajax-product-spec"></span>
+                            <span id="ajax-product-qty"></span>
+                        </div>    
                         <% } %>	
+                        
+                    <%}%>
                     </div>
-	            	
-	            	<%}%>
+                    
 	                <div id="cart-icon-area-position">
 	                    <a href="<%= request.getContextPath() %>/member/cart.jsp">
 	                        <img src="<%= request.getContextPath() %>/images/Shopping cart.png">
