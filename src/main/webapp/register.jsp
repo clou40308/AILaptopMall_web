@@ -30,6 +30,14 @@
 		function init(){
 			//alert("init");
 			$("#search-bar-keyword").focus(focusHandler).blur(blurHandler);
+			$('#hover-container').hover(
+	    	      function() {
+	    	        $('#hover-div').stop(true, true).fadeIn();  // 滑鼠移入
+	    	      },
+	    	      function() {
+	    	        $('#hover-div').stop(true, true).fadeOut(); // 滑鼠移出
+	    	      }
+	   	    );
 			<% if(request.getMethod().equals("POST")){ %>
 			repopulateFormData();
 		}

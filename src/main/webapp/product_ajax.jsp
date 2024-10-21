@@ -117,17 +117,23 @@
         
         function sendAjaxAddToCartDoneHandler(result, status, xhr){
         	//alert("加入購物車成功: 共"+ result.totalQty + "件");	//for test，alert購買項數	 
-			console.log("加入購物車成功: 共"+ result.totalQty + "件,名稱:"+result.cart[0].name+",螢幕尺寸:"+result.cart[0].size+",規格:"+result.cart[0].spec+"數量:"+result.cart[0].qty);
+			//console.log("加入購物車成功: 共"+ result.totalQty + "件,名稱:"+result.cart[0].name+",螢幕尺寸:"+result.cart[0].size+",規格:"+result.cart[0].spec+"數量:"+result.cart[0].qty);
 			$(".totalQtySpan").text("("+result.totalQty+")");//帶入購買總數量
 			
 			//TODO:顯示簡易購物車
-			for(let i = 0 ; i<result.cart.length ; i++){
-				console.log(result.cart[i].name + result.cart[i].size +result.cart[i].spec +"數量:"+result.cart[i].qty);
-				//$("#ajax-product-name").text(result.cart[i].name);
-				//$("#ajax-product-size").text(result.cart[i].size);
-				//$("#ajax-product-spec").text(result.cart[i].spec);
-				//$("#ajax-product-qty").text(result.cart[i].qty);
+			var  cartHtml = "";
+
+			for(var i =0 ;i < result.cart.length ; i++){
+				cartHtml += `
+                <div>
+                    <span id="ajax-product-name">`+ result.cart[i].name +`</span>
+                    <span id="ajax-product-size">`+ result.cart[i].size +`</span>
+                    <span id="ajax-product-spec">`+ result.cart[i].spec +`</span>
+                    <span id="ajax-product-qty">`+ result.cart[i].qty +`</span>
+                </div>`;
 			}
+			//console.log(cartHtml);
+			$("#hover-div").html(cartHtml);
 				
 		}
         
