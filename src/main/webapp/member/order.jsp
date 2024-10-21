@@ -167,7 +167,7 @@
 	   
 	   #fieldset-shipping-address{
 	   		height: 25px;
-			width: 380px;
+			width: 565px;
 			font-size: 20px;
 	   }
 

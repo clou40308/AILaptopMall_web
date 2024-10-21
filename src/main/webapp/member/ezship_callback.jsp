@@ -136,7 +136,7 @@
 		            <%}%>
 		            <input id="submit-btn" type='submit' value='回結帳畫面'>
 		            <script>
-		               //document.getElementById("myForm").submit();<!-- 測試完畢後，請將此行uncomment，讓資料立刻submit回check+out.jsp  -->
+		               document.getElementById("myForm").submit();<!-- 測試完畢後，請將此行uncomment，讓資料立刻submit回check+out.jsp  -->
 		            </script>
 		        </form>
 		
