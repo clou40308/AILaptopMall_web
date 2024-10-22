@@ -98,7 +98,7 @@
 			$("#convenience-store-button").show();
 			break;
 		case 'NO':
-			alert('無須貨運');
+			//alert('無須貨運');
 		}
 	}
 	
@@ -370,7 +370,7 @@
 		  <script>
 		           function goEZShip() {//前往EZShip選擇門市
 		               //if (confirm("Go EZShip前，你的網址已經改用ip Address了嗎?")) {
-		               //   alert("出發至EZShip[選擇超商]");
+		                  alert("出發至EZShip[選擇超商]");
 		               // } else {
 		               //    alert("快改網址!並重新登入與購買");
 		               //    return;
